@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "use std::thread;\n\nfn main() {\n    let v = vec![1, 2, 3];\n    thread::spawn(|| {\n        println!(\"{:?}\", v);\n    }).join().unwrap();\n}",
+      "fix": "use std::thread;\n\nfn main() {\n    let v = vec![1, 2, 3];\n    thread::spawn(move || {\n        println!(\"{:?}\", v);\n    }).join().unwrap();\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x: i32 = \"abc\".parse().unwrap();\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x: Result<i32, _> = \"abc\".parse();\n    match x {\n        Ok(n) => println!(\"{}\", n),\n        Err(e) => println!(\"Error: {}\", e),\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s = String::from(\"hello\");\n    let c = s.chars();\n    println!(\"{:?}\", c.next());\n    println!(\"{:?}\", c.next());\n}",
+      "fix": "fn main() {\n    let s = String::from(\"hello\");\n    let mut c = s.chars();\n    println!(\"{:?}\", c.next());\n    println!(\"{:?}\", c.next());\n}"
+    },
+    {
+      "buggy": "use std::collections::HashMap;\n\nfn main() {\n    let mut map = HashMap::new();\n    let key = String::from(\"hello\");\n    map.insert(&key, 1);\n    println!(\"{:?}\", key);\n}",
+      "fix": "use std::collections::HashMap;\n\nfn main() {\n    let mut map = HashMap::new();\n    let key = String::from(\"hello\");\n    map.insert(key.clone(), 1);\n    println!(\"{:?}\", key);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut x = 10;\n    let y = &x;\n    let z = &mut x;\n    println!(\"{} {}\", y, z);\n}",
+      "fix": "fn main() {\n    let mut x = 10;\n    {\n        let y = &x;\n        println!(\"{}\", y);\n    }\n    let z = &mut x;\n    println!(\"{}\", z);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = vec![1, 2, 3];\n    let y = &x[1..4];\n    println!(\"{:?}\", y);\n}",
+      "fix": "fn main() {\n    let x = vec![1, 2, 3];\n    let y = &x[1..];\n    println!(\"{:?}\", y);\n}"
+    },
+    {
+      "buggy": "use std::collections::HashSet;\n\nfn main() {\n    let mut set = HashSet::new();\n    set.insert(\"hello\");\n    set.insert(\"hello\");\n    println!(\"{}\", set.len());\n}",
+      "fix": "use std::collections::HashSet;\n\nfn main() {\n    let mut set = HashSet::new();\n    set.insert(\"hello\");\n    set.insert(\"hello\");\n    println!(\"{}\", set.len());\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = Some(5);\n    let y = x.unwrap_or_else(|| panic!(\"No value\"));\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x = Some(5);\n    let y = x.unwrap_or_else(|| panic!(\"No value\"));\n    println!(\"{}\", y);\n}"
+    },
+    {
+      "buggy": "trait Animal {\n    fn speak();\n}\n\nstruct Dog;\n\nimpl Animal for Dog {\n    fn speak() {\n        println!(\"Woof!\");\n    }\n}\n\nfn main() {\n    let a = Dog;\n    a.speak();\n}",
+      "fix": "trait Animal {\n    fn speak(&self);\n}\n\nstruct Dog;\n\nimpl Animal for Dog {\n    fn speak(&self) {\n        println!(\"Woof!\");\n    }\n}\n\nfn main() {\n    let a = Dog;\n    a.speak();\n}"
+    },
+    {
+      "buggy": "enum Message {\n    Quit,\n    Move { x: i32, y: i32 },\n}\n\nfn main() {\n    let msg = Message::Move { x: 1, y: 2 };\n    match msg {\n        Quit => println!(\"Quit\"),\n        Move { x, y } => println!(\"Move to {}, {}\", x, y),\n    }\n}",
+      "fix": "enum Message {\n    Quit,\n    Move { x: i32, y: i32 },\n}\n\nuse Message::*;\n\nfn main() {\n    let msg = Move { x: 1, y: 2 };\n    match msg {\n        Quit => println!(\"Quit\"),\n        Move { x, y } => println!(\"Move to {}, {}\", x, y),\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s = \"hello\";\n    let b = s.as_bytes();\n    println!(\"{}\", b);\n}",
+      "fix": "fn main() {\n    let s = \"hello\";\n    let b = s.as_bytes();\n    println!(\"{:?}\", b);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let a = [1, 2, 3];\n    let b = a;\n    println!(\"{:?} {:?}\", a, b);\n}",
+      "fix": "fn main() {\n    let a = [1, 2, 3];\n    let b = a;\n    println!(\"{:?} {:?}\", a, b);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = Some(10);\n    if x.is_some() {\n        println!(\"{}\", x.unwrap());\n    }\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x = Some(10);\n    if let Some(val) = x {\n        println!(\"{}\", val);\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r1 = &s;\n    let r2 = &s;\n    s.push_str(\" world\");\n    println!(\"{} {}\", r1, r2);\n}",
+      "fix": "fn main() {\n    let mut s = String::from(\"hello\");\n    s.push_str(\" world\");\n    println!(\"{}\", s);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s = String::from(\"hi\");\n    let c = s.chars();\n    println!(\"{}\", s);\n}",
+      "fix": "fn main() {\n    let s = String::from(\"hi\");\n    let c = s.chars();\n    for ch in c {\n        println!(\"{}\", ch);\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let a = [1, 2, 3];\n    let b = &a[3];\n    println!(\"{}\", b);\n}",
+      "fix": "fn main() {\n    let a = [1, 2, 3];\n    if let Some(b) = a.get(3) {\n        println!(\"{}\", b);\n    } else {\n        println!(\"Out of bounds\");\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut v = vec![1, 2, 3];\n    for i in v.iter_mut() {\n        *i += 1;\n    }\n    println!(\"{}\", v);\n}",
+      "fix": "fn main() {\n    let mut v = vec![1, 2, 3];\n    for i in v.iter_mut() {\n        *i += 1;\n    }\n    println!(\"{:?}\", v);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let n = 5;\n    if n = 5 {\n        println!(\"five\");\n    }\n}",
+      "fix": "fn main() {\n    let n = 5;\n    if n == 5 {\n        println!(\"five\");\n    }\n}"
+    },
+    {
+      "buggy": "use std::fs::File;\n\nfn main() {\n    let f = File::open(\"nonexistent.txt\");\n    println!(\"{:?}\", f);\n}",
+      "fix": "use std::fs::File;\n\nfn main() {\n    let f = File::open(\"nonexistent.txt\");\n    match f {\n        Ok(file) => println!(\"File opened: {:?}\", file),\n        Err(e) => println!(\"Error: {}\", e),\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s = String::from(\"hello\");\n    let c = s.chars();\n    println!(\"{:?}\", s);\n}",
+      "fix": "fn main() {\n    let s = String::from(\"hello\");\n    let c = s.chars();\n    println!(\"{:?}\", c.collect::<Vec<char>>());\n}"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "fn main() {\n    let mut x = 5;\n    x = '5';\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let mut x = 5;\n    x = 5;\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = [1, 2, 3];\n    println!(\"{}\", x[3]);\n}",
+      "fix": "fn main() {\n    let x = [1, 2, 3];\n    println!(\"{}\", x[2]);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s = String::from(\"hello\");\n    let r = &mut s;\n    println!(\"{}\", s);\n}",
+      "fix": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r = &mut s;\n    println!(\"{}\", r);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = 5;\n    x = 6;\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let mut x = 5;\n    x = 6;\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1;\n    println!(\"{}\", s1);\n}",
+      "fix": "fn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1.clone();\n    println!(\"{}\", s1);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x: i32 = \"42\";\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x: i32 = \"42\".parse().unwrap();\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn add(a: i32, b: i32) -> i32 {\n    println!(\"{}\", a + b)\n}\n\nfn main() {\n    add(2, 3);\n}",
+      "fix": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}\n\nfn main() {\n    println!(\"{}\", add(2, 3));\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut v = vec![1, 2, 3];\n    for i in v {\n        v.push(i);\n    }\n}",
+      "fix": "fn main() {\n    let mut v = vec![1, 2, 3];\n    let copy = v.clone();\n    for i in copy {\n        v.push(i);\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let name = \"Rust\";\n    println!(\"Hello, {name}\");\n}",
+      "fix": "fn main() {\n    let name = \"Rust\";\n    println!(\"Hello, {}\", name);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = Some(5);\n    match x {\n        None => println!(\"None\"),\n        Some(y) => println!(y),\n    }\n}",
+      "fix": "fn main() {\n    let x = Some(5);\n    match x {\n        None => println!(\"None\"),\n        Some(y) => println!(\"{}\", y),\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x: i32 = 10.5;\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x: i32 = 10.5 as i32;\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut s = String::from(\"Hello\");\n    let r1 = &s;\n    let r2 = &mut s;\n    println!(\"{}\", r1);\n}",
+      "fix": "fn main() {\n    let mut s = String::from(\"Hello\");\n    let r2 = &mut s;\n    println!(\"{}\", r2);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut count = 0;\n    loop {\n        println!(\"count = {}\", count);\n        if count = 5 {\n            break;\n        }\n        count += 1;\n    }\n}",
+      "fix": "fn main() {\n    let mut count = 0;\n    loop {\n        println!(\"count = {}\", count);\n        if count == 5 {\n            break;\n        }\n        count += 1;\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let nums = vec![1, 2, 3];\n    println!(\"{}\", nums);\n}",
+      "fix": "fn main() {\n    let nums = vec![1, 2, 3];\n    println!(\"{:?}\", nums);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut x = 5;\n    let y = &mut x;\n    let z = &x;\n    println!(\"{}\", y);\n}",
+      "fix": "fn main() {\n    let mut x = 5;\n    let y = &mut x;\n    println!(\"{}\", y);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = 10;\n    if x = 5 {\n        println!(\"x is 5\");\n    }\n}",
+      "fix": "fn main() {\n    let x = 10;\n    if x == 5 {\n        println!(\"x is 5\");\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let greeting = 'Hello';\n    println!(\"{}\", greeting);\n}",
+      "fix": "fn main() {\n    let greeting = \"Hello\";\n    println!(\"{}\", greeting);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x: u8 = 256;\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x: u16 = 256;\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut v = vec![1, 2, 3];\n    v.insert(5, 10);\n    println!(\"{:?}\", v);\n}",
+      "fix": "fn main() {\n    let mut v = vec![1, 2, 3];\n    v.insert(2, 10);\n    println!(\"{:?}\", v);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    println!(\"The number is: \" 42);\n}",
+      "fix": "fn main() {\n    println!(\"The number is: {}\", 42);\n}"
+    }
+  ]

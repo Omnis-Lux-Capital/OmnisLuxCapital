@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<?php\nfunction increment() {\n  static $count = 0;\n  $count++;\n  echo $count;\n}\nincrement();\nincrement();\n$count = 0;\nincrement();",
+      "fix": "<?php\nfunction increment() {\n  static $count = 0;\n  $count++;\n  echo $count;\n}\nincrement();\nincrement();\nincrement();"
+    },
+    {
+      "buggy": "<?php\n$var = 10;\nfunction test() {\n  echo $var;\n}\ntest();",
+      "fix": "<?php\n$var = 10;\nfunction test() {\n  global $var;\n  echo $var;\n}\ntest();"
+    },
+    {
+      "buggy": "<?php\n$str = 'abc';\nif ($str = 'xyz') {\n  echo 'Match';\n}",
+      "fix": "<?php\n$str = 'abc';\nif ($str == 'xyz') {\n  echo 'Match';\n}"
+    },
+    {
+      "buggy": "<?php\n$nums = [1, 2, 3];\nforeach ($nums as &$n) {}\nforeach ($nums as $n) {}\necho $n;",
+      "fix": "<?php\n$nums = [1, 2, 3];\nforeach ($nums as &$n) {}\nunset($n);\nforeach ($nums as $n) {}\necho $n;"
+    },
+    {
+      "buggy": "<?php\n$items = array('a', 'b', 'c');\narray_pop($items);\necho $items;",
+      "fix": "<?php\n$items = array('a', 'b', 'c');\narray_pop($items);\nprint_r($items);"
+    },
+    {
+      "buggy": "<?php\n$test = false;\nif ($test = true) {\n  echo 'True';\n}",
+      "fix": "<?php\n$test = false;\nif ($test == true) {\n  echo 'True';\n}"
+    },
+    {
+      "buggy": "<?php\nfunction foo($x, $y = 2, $z) {\n  return $x + $y + $z;\n}",
+      "fix": "<?php\nfunction foo($x, $z, $y = 2) {\n  return $x + $y + $z;\n}"
+    },
+    {
+      "buggy": "<?php\n$a = [1, 2];\n$b = [2, 3];\n$diff = array_diff($b, $a);\necho $diff;",
+      "fix": "<?php\n$a = [1, 2];\n$b = [2, 3];\n$diff = array_diff($b, $a);\nprint_r($diff);"
+    },
+    {
+      "buggy": "<?php\n$colors = ['red', 'green', 'blue'];\necho array_search('yellow', $colors);",
+      "fix": "<?php\n$colors = ['red', 'green', 'blue'];\necho array_search('yellow', $colors) === false ? 'Not found' : 'Found';"
+    },
+    {
+      "buggy": "<?php\nfunction check($a) {\n  return $a ? 'yes' : ;\n}\necho check(false);",
+      "fix": "<?php\nfunction check($a) {\n  return $a ? 'yes' : 'no';\n}\necho check(false);"
+    },
+    {
+      "buggy": "<?php\n$age = 20;\necho ($age > 18) ? 'Adult' : 'Child'",
+      "fix": "<?php\n$age = 20;\necho ($age > 18) ? 'Adult' : 'Child';"
+    },
+    {
+      "buggy": "<?php\n$score = 80;\nswitch ($score) {\n  case $score > 90:\n    echo 'A';\n    break;\n  case $score > 70:\n    echo 'B';\n    break;\n}",
+      "fix": "<?php\n$score = 80;\nif ($score > 90) {\n  echo 'A';\n} elseif ($score > 70) {\n  echo 'B';\n}"
+    },
+    {
+      "buggy": "<?php\n$val = null;\necho strlen($val);",
+      "fix": "<?php\n$val = null;\necho isset($val) ? strlen($val) : 0;"
+    },
+    {
+      "buggy": "<?php\n$nums = [1, 2, 3];\necho $nums['1'];",
+      "fix": "<?php\n$nums = [1, 2, 3];\necho $nums[1];"
+    },
+    {
+      "buggy": "<?php\n$input = '42abc';\necho intval($input) + 1.5;",
+      "fix": "<?php\n$input = '42abc';\necho (int)$input + (float)1.5;"
+    },
+    {
+      "buggy": "<?php\n$map = ['one' => 1, 'two' => 2];\necho $map[1];",
+      "fix": "<?php\n$map = ['one' => 1, 'two' => 2];\necho $map['one'];"
+    },
+    {
+      "buggy": "<?php\n$counter = 0;\nfunction add() {\n  $counter++;\n}\nadd();\necho $counter;",
+      "fix": "<?php\n$counter = 0;\nfunction add() {\n  global $counter;\n  $counter++;\n}\nadd();\necho $counter;"
+    },
+    {
+      "buggy": "<?php\n$str = 'hello';\n$str[0] = 'H';\necho $str;",
+      "fix": "<?php\n$str = 'hello';\n$str = 'H' . substr($str, 1);\necho $str;"
+    },
+    {
+      "buggy": "<?php\n$a = 5;\n$b = 0;\necho $a / $b;",
+      "fix": "<?php\n$a = 5;\n$b = 0;\necho $b != 0 ? $a / $b : 'Divide by zero error';"
+    },
+    {
+      "buggy": "<?php\n$list = [1, 2, 3];\necho end($list);\necho current($list);",
+      "fix": "<?php\n$list = [1, 2, 3];\necho end($list);\nreset($list);\necho current($list);"
+    }
+  ]

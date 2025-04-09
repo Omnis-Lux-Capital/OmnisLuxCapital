@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "def count_down(n):\n    if n == 0:\n        print('Done')\n    else:\n        print(n)\n        count_down(n - 1)",
+      "fix": "def count_down(n):\n    if n == 0:\n        print('Done')\n        return\n    print(n)\n    count_down(n - 1)"
+    },
+    {
+      "buggy": "def append_item(item, my_list=[]):\n    my_list.append(item)\n    return my_list",
+      "fix": "def append_item(item, my_list=None):\n    if my_list is None:\n        my_list = []\n    my_list.append(item)\n    return my_list"
+    },
+    {
+      "buggy": "def is_even(n):\n    return n % 2 = 0",
+      "fix": "def is_even(n):\n    return n % 2 == 0"
+    },
+    {
+      "buggy": "x = 10\ndef change():\n    x += 1\n    print(x)\n\nchange()",
+      "fix": "x = 10\ndef change():\n    global x\n    x += 1\n    print(x)\n\nchange()"
+    },
+    {
+      "buggy": "def make_multiplier(x):\n    return lambda y: x * y\n\nprint(make_multiplier(2)(3))\nprint(make_multiplier(2, 3))",
+      "fix": "def make_multiplier(x):\n    return lambda y: x * y\n\nprint(make_multiplier(2)(3))"
+    },
+    {
+      "buggy": "def greet(name):\n    print('Hello', name)\n\ngreet()",
+      "fix": "def greet(name):\n    print('Hello', name)\n\ngreet('Alice')"
+    },
+    {
+      "buggy": "def get_middle(lst):\n    return lst[len(lst)//2]",
+      "fix": "def get_middle(lst):\n    return lst[len(lst) // 2] if lst else None"
+    },
+    {
+      "buggy": "def merge_dicts(a, b):\n    return a + b",
+      "fix": "def merge_dicts(a, b):\n    return {**a, **b}"
+    },
+    {
+      "buggy": "nums = [1, 2, 3, 4]\nprint(nums.map(lambda x: x * 2))",
+      "fix": "nums = [1, 2, 3, 4]\nprint(list(map(lambda x: x * 2, nums)))"
+    },
+    {
+      "buggy": "def factorial(n):\n    return n * factorial(n - 1)",
+      "fix": "def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)"
+    },
+    {
+      "buggy": "data = {'a': 1, 'b': 2}\nprint(data['c'])",
+      "fix": "data = {'a': 1, 'b': 2}\nprint(data.get('c', 'Key not found'))"
+    },
+    {
+      "buggy": "def remove_even(nums):\n    for n in nums:\n        if n % 2 == 0:\n            nums.remove(n)\n    return nums",
+      "fix": "def remove_even(nums):\n    return [n for n in nums if n % 2 != 0]"
+    },
+    {
+      "buggy": "import math\nprint(math.pow(2))",
+      "fix": "import math\nprint(math.pow(2, 3))"
+    },
+    {
+      "buggy": "class Animal:\n    def __init__(self, name):\n        name = name\n\na = Animal('Dog')\nprint(a.name)",
+      "fix": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\na = Animal('Dog')\nprint(a.name)"
+    },
+    {
+      "buggy": "def reverse_string(s):\n    return s[::-2]",
+      "fix": "def reverse_string(s):\n    return s[::-1]"
+    },
+    {
+      "buggy": "try:\n    result = 10 / 0\nexcept:\n    print('Something went wrong')\n    print(result)",
+      "fix": "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('Something went wrong')\n    result = None\n    print(result)"
+    },
+    {
+      "buggy": "def average(nums):\n    return sum(nums) / len",
+      "fix": "def average(nums):\n    return sum(nums) / len(nums)"
+    },
+    {
+      "buggy": "items = ['a', 'b', 'c']\nfor i in range(0, len(items)):\n    print(items[i + 1])",
+      "fix": "items = ['a', 'b', 'c']\nfor i in range(len(items)):\n    print(items[i])"
+    },
+    {
+      "buggy": "def combine(a, b):\n    return a.append(b)",
+      "fix": "def combine(a, b):\n    return a + b"
+    },
+    {
+      "buggy": "def get_max(lst):\n    max = lst[0]\n    for item in lst:\n        if item > max:\n            max = item\n    return max\n\nprint(get_max([]))",
+      "fix": "def get_max(lst):\n    if not lst:\n        return None\n    max_val = lst[0]\n    for item in lst:\n        if item > max_val:\n            max_val = item\n    return max_val\n\nprint(get_max([]))"
+    }
+  ]

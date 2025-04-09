@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\"\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    var name string = 42\n}",
+      "fix": "package main\n\nfunc main() {\n    var name int = 42\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    num := 5\n    if num = 5 {\n        fmt.Println(\"Five\")\n    }\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    num := 5\n    if num == 5 {\n        fmt.Println(\"Five\")\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var list = []int{1, 2, 3}\n    fmt.Println(list[3])\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var list = []int{1, 2, 3}\n    fmt.Println(list[2])\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc greet(name string) {\n    fmt.Println(\"Hello, \" + name)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc greet(name string) {\n    fmt.Println(\"Hello, \" + name)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int = \"five\"\n    fmt.Println(x)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x string = \"five\"\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    x := 10\n    fmt.Println(x)\n    x = \"ten\"\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    x := 10\n    fmt.Println(x)\n    // x = \"ten\" // type mismatch\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    fmt.Println(add(5))\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    fmt.Println(add(5, 3))\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    fmt.Println(\"Missing import\")\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Missing import\")\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    for i := 0; i < 5; i++ {\n    fmt.Println(i)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    for i := 0; i < 5; i++ {\n        fmt.Println(i)\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    x := []int{1, 2, 3}\n    fmt.Println(len x)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    x := []int{1, 2, 3}\n    fmt.Println(len(x))\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc sayHello(name string) string {\n    return \"Hello, \" + name\n}\n\nfmt.Println(sayHello(\"Alex\"))",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc sayHello(name string) string {\n    return \"Hello, \" + name\n}\n\nfunc main() {\n    fmt.Println(sayHello(\"Alex\"))\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int\n    fmt.Println(x + nil)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var a int = 5\n    var b float64 = 6.7\n    fmt.Println(a + b)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var a int = 5\n    var b float64 = 6.7\n    fmt.Println(float64(a) + b)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    if true {\n        fmt.Println(\"Always true\")\n    } else\n        fmt.Println(\"Never happens\")\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    if true {\n        fmt.Println(\"Always true\")\n    } else {\n        fmt.Println(\"Never happens\")\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int = 10\n    var y int = 0\n    fmt.Println(x / y)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int = 10\n    var y int = 1\n    fmt.Println(x / y)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc printMessage() {\n    fmt.Println(\"Hi\")\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc printMessage() {\n    fmt.Println(\"Hi\")\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    names := []string{\"Alice\", \"Bob\"}\n    fmt.Println(names[2])\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    names := []string{\"Alice\", \"Bob\"}\n    fmt.Println(names[1])\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x bool = \"true\"\n    fmt.Println(x)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x string = \"true\"\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Go is awesome\")",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Go is awesome\")\n}"
+    }
+  ]

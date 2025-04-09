@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "List<int> numbers = new List<int> {1, 2, 3};\nforeach(var i in numbers) {\n  if(i == 2) numbers.Remove(i);\n}",
+      "fix": "List<int> numbers = new List<int> {1, 2, 3};\nfor(int i = 0; i < numbers.Count; i++) {\n  if(numbers[i] == 2) numbers.RemoveAt(i);\n}"
+    },
+    {
+      "buggy": "public class Animal {\n  public virtual void Speak() {\n    Console.WriteLine(\"Animal\");\n  }\n}\npublic class Dog : Animal {\n  public override void Speak() {\n    Console.WriteLine(\"Bark\");\n  }\n}\nAnimal dog = new Dog();\ndog.Speak;",
+      "fix": "Animal dog = new Dog();\ndog.Speak();"
+    },
+    {
+      "buggy": "string s = null;\nif(s.Length == 0) {\n  Console.WriteLine(\"Empty\");\n}",
+      "fix": "string s = null;\nif(!string.IsNullOrEmpty(s)) {\n  Console.WriteLine(\"Empty\");\n}"
+    },
+    {
+      "buggy": "int x = 10;\nobject obj = x;\nint y = (string)obj;",
+      "fix": "int x = 10;\nobject obj = x;\nint y = (int)obj;"
+    },
+    {
+      "buggy": "DateTime date = new DateTime(2024, 2, 30);",
+      "fix": "DateTime date = new DateTime(2024, 2, 29);"
+    },
+    {
+      "buggy": "class Base {\n  private void Display() {\n    Console.WriteLine(\"Base\");\n  }\n}\nclass Derived : Base {\n  public void Display() {\n    Console.WriteLine(\"Derived\");\n  }\n}",
+      "fix": "class Base {\n  public void Display() {\n    Console.WriteLine(\"Base\");\n  }\n}\nclass Derived : Base {\n  public new void Display() {\n    Console.WriteLine(\"Derived\");\n  }\n}"
+    },
+    {
+      "buggy": "int[] nums = {1, 2, 3};\nConsole.WriteLine(nums[-1]);",
+      "fix": "int[] nums = {1, 2, 3};\nConsole.WriteLine(nums[0]);"
+    },
+    {
+      "buggy": "string input = \"100a\";\nint value = int.Parse(input);",
+      "fix": "string input = \"100a\";\nint value;\nif(int.TryParse(input, out value)) {\n  Console.WriteLine(value);\n}"
+    },
+    {
+      "buggy": "Task.Delay(1000);\nConsole.WriteLine(\"Done\");",
+      "fix": "await Task.Delay(1000);\nConsole.WriteLine(\"Done\");"
+    },
+    {
+      "buggy": "string name = \"John\";\nif(name is string name) {\n  Console.WriteLine(name);\n}",
+      "fix": "string name = \"John\";\nif(name is string n) {\n  Console.WriteLine(n);\n}"
+    },
+    {
+      "buggy": "List<int> list = null;\nlist.Add(5);",
+      "fix": "List<int> list = new List<int>();\nlist.Add(5);"
+    },
+    {
+      "buggy": "string path = \"C:\\newfolder\\file.txt\";",
+      "fix": "string path = \"C:\\\\newfolder\\\\file.txt\";"
+    },
+    {
+      "buggy": "int a = 10;\nint b = 0;\nint result = a / b;",
+      "fix": "int a = 10;\nint b = 0;\nint result = b != 0 ? a / b : 0;"
+    },
+    {
+      "buggy": "var dict = new Dictionary<string, int>();\ndict.Add(\"a\", 1);\ndict.Add(\"a\", 2);",
+      "fix": "var dict = new Dictionary<string, int>();\ndict[\"a\"] = 2;"
+    },
+    {
+      "buggy": "int[] arr = new int[3];\nConsole.WriteLine(arr[3]);",
+      "fix": "int[] arr = new int[3];\nConsole.WriteLine(arr[2]);"
+    },
+    {
+      "buggy": "int val = null;",
+      "fix": "int? val = null;"
+    },
+    {
+      "buggy": "string message = \"Welcome\";\nchar ch = message[7];",
+      "fix": "string message = \"Welcome\";\nchar ch = message[6];"
+    },
+    {
+      "buggy": "double d = 5.0 / 0;\nConsole.WriteLine(d);",
+      "fix": "double d = 5.0 / 1;\nConsole.WriteLine(d);"
+    },
+    {
+      "buggy": "var items = new[] {\"a\", \"b\", \"c\"};\nConsole.WriteLine(items[items.Length]);",
+      "fix": "Console.WriteLine(items[items.Length - 1]);"
+    },
+    {
+      "buggy": "var obj = new Object();\nConsole.WriteLine(obj.ToString(null));",
+      "fix": "Console.WriteLine(obj.ToString());"
+    }
+  ]

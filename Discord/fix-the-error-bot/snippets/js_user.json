@@ -1,0 +1,82 @@
+[
+    {
+    "buggy": "let total = '4'\nlet result = total + 2\nconsole.log(result)",
+    "fix": "let total = '4'\nlet result = parseInt(total) + 2\nconsole.log(result)"
+  },
+    {
+      "buggy": "const x = 10\nx = 5\nconsole.log(x)",
+      "fix": "let x = 10\nx = 5\nconsole.log(x)"
+    },
+    {
+      "buggy": "console.log('5' + 5 + 1)",
+      "fix": "console.log('5' + (5 + 1))"
+    },
+    {
+      "buggy": "if (true)\n    console.log('Yes')\n    console.log('Still true')",
+      "fix": "if (true) {\n    console.log('Yes')\n    console.log('Still true')\n}"
+    },
+    {
+      "buggy": "let arr = [1, 2, 3]\nconsole.log(arr(0))",
+      "fix": "let arr = [1, 2, 3]\nconsole.log(arr[0])"
+    },
+    {
+      "buggy": "function greet(name) {\n    console.log('Hi, ' + name)\n}\ngreet()",
+      "fix": "function greet(name) {\n    console.log('Hi, ' + name)\n}\ngreet('Alex')"
+    },
+    {
+      "buggy": "let a = 5\nlet b = '5'\nif (a === b) {\n    console.log('Equal')\n}",
+      "fix": "let a = 5\nlet b = '5'\nif (a == b) {\n    console.log('Equal')\n}"
+    },
+    {
+      "buggy": "console.log(Math.floor(4.7))\nconsole.log(Math.ceiling(4.1))",
+      "fix": "console.log(Math.floor(4.7))\nconsole.log(Math.ceil(4.1))"
+    },
+    {
+      "buggy": "let person = {name: 'Sam'}\nconsole.log(person.age.length)",
+      "fix": "let person = {name: 'Sam'}\nconsole.log(person.age ? person.age.length : 0)"
+    },
+    {
+      "buggy": "for (let i = 0; i < 5; i++)\n  let square = i * i\nconsole.log(square)",
+      "fix": "let square\nfor (let i = 0; i < 5; i++) {\n  square = i * i\n}\nconsole.log(square)"
+    },
+    {
+      "buggy": "function add(a, b) {\n    return\n    a + b\n}",
+      "fix": "function add(a, b) {\n    return a + b\n}"
+    },
+    {
+      "buggy": "let result = 10\nif (result = 5) {\n    console.log('Correct')\n}",
+      "fix": "let result = 10\nif (result === 5) {\n    console.log('Correct')\n}"
+    },
+    {
+      "buggy": "const isEven = num => {\n    return num % 2 = 0\n}",
+      "fix": "const isEven = num => {\n    return num % 2 === 0\n}"
+    },
+    {
+      "buggy": "let x = '10'\nconsole.log(x * 2 + '2')",
+      "fix": "let x = '10'\nconsole.log((parseInt(x) * 2) + '2')"
+    },
+    {
+    "buggy": "let user = {}\nconsole.log(user.name.first)",
+    "fix": "let user = {}\nconsole.log(user.name && user.name.first)"
+  },
+    {
+      "buggy": "const fruits = ['apple', 'banana']\nfruits.push = 'orange'\nconsole.log(fruits)",
+      "fix": "const fruits = ['apple', 'banana']\nfruits.push('orange')\nconsole.log(fruits)"
+    },
+    {
+      "buggy": "let counter = 0\nwhile (counter < 5)\n  console.log(counter)",
+      "fix": "let counter = 0\nwhile (counter < 5) {\n  console.log(counter)\n  counter++\n}"
+    },
+    {
+      "buggy": "let num = 1.23456\nconsole.log(num.toFixed)",
+      "fix": "let num = 1.23456\nconsole.log(num.toFixed(2))"
+    },
+    {
+      "buggy": "function sayHi() {\n  console.log('Hi')\n}\nsayhi()",
+      "fix": "function sayHi() {\n  console.log('Hi')\n}\nsayHi()"
+    },
+    {
+      "buggy": "let price = null\nif (price > 0) {\n  console.log('Valid')\n}",
+      "fix": "let price = null\nif (price !== null && price > 0) {\n  console.log('Valid')\n}"
+    }
+  ]

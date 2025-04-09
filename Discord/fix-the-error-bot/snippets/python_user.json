@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "def greet(name):\nprint('Hello, ' + name)",
+      "fix": "def greet(name):\n    print('Hello, ' + name)"
+    },
+    {
+      "buggy": "for i in range(5)\n    print(i)",
+      "fix": "for i in range(5):\n    print(i)"
+    },
+    {
+      "buggy": "if x = 5:\n    print('x is 5')",
+      "fix": "if x == 5:\n    print('x is 5')"
+    },
+    {
+      "buggy": "def add(a, b):\n    return a + b\n\nprint(add(2))",
+      "fix": "def add(a, b):\n    return a + b\n\nprint(add(2, 3))"
+    },
+    {
+      "buggy": "my_list = [1, 2, 3\nprint(my_list[0])",
+      "fix": "my_list = [1, 2, 3]\nprint(my_list[0])"
+    },
+    {
+      "buggy": "while x < 10:\nprint(x)\nx += 1",
+      "fix": "while x < 10:\n    print(x)\n    x += 1"
+    },
+    {
+      "buggy": "def say_hello()\n    print('Hello')",
+      "fix": "def say_hello():\n    print('Hello')"
+    },
+    {
+      "buggy": "x = input('Enter a number: ')\nprint(x * 2)",
+      "fix": "x = int(input('Enter a number: '))\nprint(x * 2)"
+    },
+    {
+      "buggy": "def square(n):\n    return n ** 2\n\nprint(square)",
+      "fix": "def square(n):\n    return n ** 2\n\nprint(square(4))"
+    },
+    {
+      "buggy": "total = sum[1, 2, 3]",
+      "fix": "total = sum([1, 2, 3])"
+    },
+    {
+      "buggy": "name = input('What is your name?')\nprint('Hello' + name)",
+      "fix": "name = input('What is your name?')\nprint('Hello ' + name)"
+    },
+    {
+      "buggy": "def multiply(a, b):\n    print a * b",
+      "fix": "def multiply(a, b):\n    print(a * b)"
+    },
+    {
+      "buggy": "for i in range(3):\nprint(i)\n  print('looping')",
+      "fix": "for i in range(3):\n    print(i)\n    print('looping')"
+    },
+    {
+      "buggy": "if True\n    print('yes')",
+      "fix": "if True:\n    print('yes')"
+    },
+    {
+      "buggy": "age = int(input('Enter your age: '))\nif age > 18:\nprint('Adult')",
+      "fix": "age = int(input('Enter your age: '))\nif age > 18:\n    print('Adult')"
+    },
+    {
+      "buggy": "items = ['a', 'b', 'c']\nprint(items[3])",
+      "fix": "items = ['a', 'b', 'c']\nprint(items[2])"
+    },
+    {
+      "buggy": "def welcome(name):\n    return 'Welcome, ' + Name",
+      "fix": "def welcome(name):\n    return 'Welcome, ' + name"
+    },
+    {
+      "buggy": "message = 'It\\'s a trap!'\nprint(message)",
+      "fix": "message = \"It's a trap!\"\nprint(message)"
+    },
+    {
+      "buggy": "def divide(a, b):\n    return a / b\n\nprint(divide(4, 0))",
+      "fix": "def divide(a, b):\n    if b != 0:\n        return a / b\n    return 'Cannot divide by zero'"
+    },
+    {
+      "buggy": "for i in range(5):\n    print i",
+      "fix": "for i in range(5):\n    print(i)"
+    }
+  ]

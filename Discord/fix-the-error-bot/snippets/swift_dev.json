@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "var optionalString: String?\nprint(optionalString.uppercased())",
+      "fix": "var optionalString: String?\nprint(optionalString?.uppercased() ?? \"\")"
+    },
+    {
+      "buggy": "let numbers = [1, 2, 3]\nlet sum = numbers.reduce(0, +)\nprint(Sum)",
+      "fix": "let numbers = [1, 2, 3]\nlet sum = numbers.reduce(0, +)\nprint(sum)"
+    },
+    {
+      "buggy": "let dict = [\"a\": 1, \"b\": 2]\nprint(dict[\"c\"]!)",
+      "fix": "let dict = [\"a\": 1, \"b\": 2]\nprint(dict[\"c\"] ?? 0)"
+    },
+    {
+      "buggy": "func greet(_ name: String) {\n    return \"Hello, \\(name)\"\n}",
+      "fix": "func greet(_ name: String) -> String {\n    return \"Hello, \\(name)\"\n}"
+    },
+    {
+      "buggy": "let names = [\"Alice\", \"Bob\"]\nfor i in 0...names.count {\n    print(names[i])\n}",
+      "fix": "let names = [\"Alice\", \"Bob\"]\nfor i in 0..<names.count {\n    print(names[i])\n}"
+    },
+    {
+      "buggy": "let value: Any = 5\nlet str: String = value",
+      "fix": "let value: Any = 5\nif let str = value as? String {\n    print(str)\n}"
+    },
+    {
+      "buggy": "let a = 10\nlet b = 0\nlet c = a / b\nprint(c)",
+      "fix": "let a = 10\nlet b = 0\nif b != 0 {\n    let c = a / b\n    print(c)\n} else {\n    print(\"Cannot divide by zero\")\n}"
+    },
+    {
+      "buggy": "var array = [1, 2, 3]\narray.remove(at: 3)",
+      "fix": "var array = [1, 2, 3]\nif array.indices.contains(3) {\n    array.remove(at: 3)\n}"
+    },
+    {
+      "buggy": "class Dog {\n    var name: String\n}\nlet d = Dog()\nd.name = \"Rex\"",
+      "fix": "class Dog {\n    var name: String\n    init(name: String) {\n        self.name = name\n    }\n}\nlet d = Dog(name: \"Rex\")"
+    },
+    {
+      "buggy": "let tuple = (1, 2, 3)\nprint(tuple.4)",
+      "fix": "let tuple = (1, 2, 3)\n// print(tuple.4) // Index out of range"
+    },
+    {
+      "buggy": "let greeting: String = nil",
+      "fix": "let greeting: String? = nil"
+    },
+    {
+      "buggy": "var count: Int = \"10\"",
+      "fix": "var count: Int = Int(\"10\") ?? 0"
+    },
+    {
+      "buggy": "enum Direction {\n    case north, south, east, west\n}\nlet d = Direction(\"north\")",
+      "fix": "enum Direction: String {\n    case north, south, east, west\n}\nlet d = Direction(rawValue: \"north\")"
+    },
+    {
+      "buggy": "struct Point {\n    let x: Int\n    let y: Int\n}\nvar p = Point(x: 3, y: 4)\np.x = 5",
+      "fix": "struct Point {\n    var x: Int\n    var y: Int\n}\nvar p = Point(x: 3, y: 4)\np.x = 5"
+    },
+    {
+      "buggy": "let scores = [90, 85, 70]\nlet passed = scores.filter { $0 >= 80 }\nprint(passed.count > 0 ? \"Passed\" : \"Failed\")",
+      "fix": "let scores = [90, 85, 70]\nlet passed = scores.filter { $0 >= 80 }\nprint(passed.count > 0 ? \"Passed\" : \"Failed\")"
+    },
+    {
+      "buggy": "func isEven(_ number: Int) -> Bool {\n    number % 2 == 0\n}",
+      "fix": "func isEven(_ number: Int) -> Bool {\n    return number % 2 == 0\n}"
+    },
+    {
+      "buggy": "var greeting: String?\ngreeting = \"Hello\"\nprint(greeting.uppercased())",
+      "fix": "var greeting: String?\ngreeting = \"Hello\"\nprint(greeting?.uppercased() ?? \"\")"
+    },
+    {
+      "buggy": "var count = 0\nrepeat {\n    print(count)\n    count++\n} while count < 5",
+      "fix": "var count = 0\nrepeat {\n    print(count)\n    count += 1\n} while count < 5"
+    },
+    {
+      "buggy": "let x = 5\nif x = 5 {\n    print(\"Equal\")\n}",
+      "fix": "let x = 5\nif x == 5 {\n    print(\"Equal\")\n}"
+    },
+    {
+      "buggy": "let json = \"{name: 'John'}\"\nlet data = json.data(using: .utf8)!\nlet dict = try JSONSerialization.jsonObject(with: data)",
+      "fix": "let json = \"{\\\"name\\\": \\\"John\\\"}\"\nlet data = json.data(using: .utf8)!\nlet dict = try? JSONSerialization.jsonObject(with: data)"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "for (var i = 0; i < 5; i++) {\n  setTimeout(() => console.log(i), 100);\n}",
+      "fix": "for (let i = 0; i < 5; i++) {\n  setTimeout(() => console.log(i), 100);\n}"
+    },
+    {
+      "buggy": "const obj = { a: 1, b: 2 }\nconst clone = Object.assign(obj)\nclone.a = 5\nconsole.log(obj.a)",
+      "fix": "const obj = { a: 1, b: 2 }\nconst clone = Object.assign({}, obj)\nclone.a = 5\nconsole.log(obj.a)"
+    },
+    {
+      "buggy": "let x = 5\nswitch(x) {\n  case 5:\n    console.log('Five')\n  case 6:\n    console.log('Six')\n}",
+      "fix": "let x = 5\nswitch(x) {\n  case 5:\n    console.log('Five')\n    break\n  case 6:\n    console.log('Six')\n}"
+    },
+    {
+      "buggy": "let x = 0\nif (!x) {\n  console.log('x exists')\n}",
+      "fix": "let x = 0\nif (x !== undefined && x !== null) {\n  console.log('x exists')\n}"
+    },
+    {
+      "buggy": "const nums = [1, 2, 3]\nnums.map(n => {\n  n * 2\n})",
+      "fix": "const nums = [1, 2, 3]\nnums.map(n => {\n  return n * 2\n})"
+    },
+    {
+      "buggy": "function multiply(a, b = 2, c) {\n  return a * b * c\n}\nconsole.log(multiply(2, 3))",
+      "fix": "function multiply(a, c, b = 2) {\n  return a * b * c\n}\nconsole.log(multiply(2, 3))"
+    },
+    {
+      "buggy": "console.log(typeof null === 'null')",
+      "fix": "console.log(typeof null === 'object')"
+    },
+    {
+      "buggy": "let obj = { x: 10 }\nlet { y } = obj\nconsole.log(y)",
+      "fix": "let obj = { x: 10 }\nlet { x: y } = obj\nconsole.log(y)"
+    },
+    {
+      "buggy": "async function test() {\n  return 'done'\n}\ntest().then(console.log).catch(console.error)",
+      "fix": "async function test() {\n  return Promise.resolve('done')\n}\ntest().then(console.log).catch(console.error)"
+    },
+    {
+      "buggy": "function Person(name) {\n  this.name = name\n}\nPerson.prototype.greet = () => {\n  console.log('Hi, ' + this.name)\n}",
+      "fix": "function Person(name) {\n  this.name = name\n}\nPerson.prototype.greet = function() {\n  console.log('Hi, ' + this.name)\n}"
+    },
+    {
+      "buggy": "const a = [1, 2, 3]\na.length = 5\na[3] = 4\na[4] = 5\na.forEach(x => console.log(x))",
+      "fix": "const a = [1, 2, 3]\na.length = 5\na[3] = 4\na[4] = 5\na.filter(x => x !== undefined).forEach(x => console.log(x))"
+    },
+    {
+      "buggy": "function* gen() {\n  yield 1\n  return 2\n  yield 3\n}",
+      "fix": "function* gen() {\n  yield 1\n  yield 2\n  yield 3\n}"
+    },
+    {
+      "buggy": "let num = 255\nconsole.log(num.toString(2.5))",
+      "fix": "let num = 255\nconsole.log(num.toString(2))"
+    },
+    {
+      "buggy": "let obj = { a: 1, b: 2 }\nlet keys = Object.values(obj)\nconsole.log(keys[0] === 'a')",
+      "fix": "let obj = { a: 1, b: 2 }\nlet keys = Object.keys(obj)\nconsole.log(keys[0] === 'a')"
+    },
+    {
+      "buggy": "let result = [1, 2, 3].reduce()\nconsole.log(result)",
+      "fix": "let result = [1, 2, 3].reduce((acc, val) => acc + val)\nconsole.log(result)"
+    },
+    {
+      "buggy": "console.log(0.1 + 0.2 === 0.3)",
+      "fix": "console.log(Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON)"
+    },
+    {
+      "buggy": "let a = NaN\nif (a === NaN) {\n  console.log('Is NaN')\n}",
+      "fix": "let a = NaN\nif (isNaN(a)) {\n  console.log('Is NaN')\n}"
+    },
+    {
+      "buggy": "function test(x, y) {\n  arguments[0] = 10\n  return x\n}\nconsole.log(test(5, 6))",
+      "fix": "function test(x, y) {\n  x = 10\n  return x\n}\nconsole.log(test(5, 6))"
+    },
+    {
+      "buggy": "let arr = [1, 2, 3]\narr.length = 0\nconsole.log(arr[0])",
+      "fix": "let arr = [1, 2, 3]\nconsole.log(arr[0])"
+    },
+    {
+      "buggy": "let str = '42px'\nlet num = +str\nconsole.log(num)",
+      "fix": "let str = '42px'\nlet num = parseInt(str)\nconsole.log(num)"
+    }
+  ]

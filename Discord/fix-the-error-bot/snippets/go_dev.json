@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var m map[string]int\n    m[\"a\"] = 1\n    fmt.Println(m[\"a\"])\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    m := make(map[string]int)\n    m[\"a\"] = 1\n    fmt.Println(m[\"a\"])\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc divide(a int, b int) int {\n    defer fmt.Println(\"Done\")\n    return a / b\n}\n\nfunc main() {\n    fmt.Println(divide(10, 0))\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc divide(a int, b int) int {\n    if b == 0 {\n        fmt.Println(\"Cannot divide by zero\")\n        return 0\n    }\n    defer fmt.Println(\"Done\")\n    return a / b\n}\n\nfunc main() {\n    fmt.Println(divide(10, 0))\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\ntype Person struct {\n    name string\n    age int\n}\n\nfunc main() {\n    p := Person{\"Alice\"}\n    fmt.Println(p)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\ntype Person struct {\n    name string\n    age int\n}\n\nfunc main() {\n    p := Person{name: \"Alice\"}\n    fmt.Println(p)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc change(val *int) {\n    val = new(int)\n    *val = 20\n}\n\nfunc main() {\n    x := 10\n    change(&x)\n    fmt.Println(x)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc change(val *int) {\n    *val = 20\n}\n\nfunc main() {\n    x := 10\n    change(&x)\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc doSomething() {\n    panic(\"something went wrong\")\n    fmt.Println(\"After panic\")\n}\n\nfunc main() {\n    doSomething()\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc doSomething() {\n    defer fmt.Println(\"Deferred call\")\n    panic(\"something went wrong\")\n}\n\nfunc main() {\n    doSomething()\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := []int{1, 2, 3}\n    b := a\n    b[0] = 100\n    fmt.Println(a)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := []int{1, 2, 3}\n    b := make([]int, len(a))\n    copy(b, a)\n    b[0] = 100\n    fmt.Println(a)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc modify(m map[string]int) {\n    m = map[string]int{\"x\": 42}\n}\n\nfunc main() {\n    myMap := map[string]int{\"a\": 1}\n    modify(myMap)\n    fmt.Println(myMap)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc modify(m map[string]int) {\n    m[\"x\"] = 42\n}\n\nfunc main() {\n    myMap := map[string]int{\"a\": 1}\n    modify(myMap)\n    fmt.Println(myMap)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    ch := make(chan int)\n    ch <- 1\n}",
+      "fix": "package main\n\nfunc main() {\n    ch := make(chan int)\n    go func() {\n        ch <- 1\n    }()\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc square(n int) int {\n    return n * n\n}\n\nfunc main() {\n    numbers := []int{1, 2, 3}\n    for _, v := range numbers {\n        square(v)\n    }\n    fmt.Println(numbers)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc square(n int) int {\n    return n * n\n}\n\nfunc main() {\n    numbers := []int{1, 2, 3}\n    for i, v := range numbers {\n        numbers[i] = square(v)\n    }\n    fmt.Println(numbers)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var arr [3]int = [3]int{1, 2, 3}\n    arr = append(arr, 4)\n    fmt.Println(arr)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    arr := []int{1, 2, 3}\n    arr = append(arr, 4)\n    fmt.Println(arr)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc greeting(name string) string {\n    return \"Hello, \" + name\n}\n\nfunc main() {\n    fmt.Println(greeting)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc greeting(name string) string {\n    return \"Hello, \" + name\n}\n\nfunc main() {\n    fmt.Println(greeting(\"Go\"))\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\ntype data struct {\n    value int\n}\n\nfunc main() {\n    d := data{value: 10}\n    fmt.Println(d.value())\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\ntype data struct {\n    value int\n}\n\nfunc main() {\n    d := data{value: 10}\n    fmt.Println(d.value)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc add(x int, y int) int {\n    return x + y\n}\n\nfunc add(x float64, y float64) float64 {\n    return x + y\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc addInt(x int, y int) int {\n    return x + y\n}\n\nfunc addFloat(x float64, y float64) float64 {\n    return x + y\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    str := \"hello\"\n    str[0] = 'H'\n    fmt.Println(str)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    str := \"hello\"\n    b := []byte(str)\n    b[0] = 'H'\n    str = string(b)\n    fmt.Println(str)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc increment(n *int) {\n    n++\n}\n\nfunc main() {\n    x := 5\n    increment(&x)\n    fmt.Println(x)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc increment(n *int) {\n    *n++\n}\n\nfunc main() {\n    x := 5\n    increment(&x)\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x interface{} = 7\n    fmt.Println(x + 3)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x interface{} = 7\n    fmt.Println(x.(int) + 3)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc getName() (string, error) {\n    return \"Alice\"\n}\n\nfunc main() {\n    name, err := getName()\n    fmt.Println(name, err)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc getName() (string, error) {\n    return \"Alice\", nil\n}\n\nfunc main() {\n    name, err := getName()\n    fmt.Println(name, err)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc printItems(items ...string) {\n    fmt.Println(items)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc printItems(items ...string) {\n    fmt.Println(items)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    var ptr *int\n    *ptr = 10\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var x int = 10\n    var ptr *int = &x\n    *ptr = 20\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    numbers := []int{1, 2, 3}\n    for i := 0; i <= len(numbers); i++ {\n        fmt.Println(numbers[i])\n    }\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    numbers := []int{1, 2, 3}\n    for i := 0; i < len(numbers); i++ {\n        fmt.Println(numbers[i])\n    }\n}"
+    }
+  ]

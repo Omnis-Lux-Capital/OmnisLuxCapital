@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "def func(a, L=[]):\n    L.append(a)\n    return L\n\nprint(func(1))\nprint(func(2))",
+      "fix": "def func(a, L=None):\n    if L is None:\n        L = []\n    L.append(a)\n    return L\n\nprint(func(1))\nprint(func(2))"
+    },
+    {
+      "buggy": "total = sum([1, 2, 3, 4], 5.0)",
+      "fix": "total = sum([1, 2, 3, 4], start=5.0)"
+    },
+    {
+      "buggy": "a = (1, 2, 3)\na[0] = 5",
+      "fix": "a = [1, 2, 3]\na[0] = 5"
+    },
+    {
+      "buggy": "x = 5\ndef outer():\n    def inner():\n        x += 1\n        return x\n    return inner()\n\nprint(outer())",
+      "fix": "x = 5\ndef outer():\n    def inner():\n        global x\n        x += 1\n        return x\n    return inner()\n\nprint(outer())"
+    },
+    {
+      "buggy": "def f():\n    try:\n        return 1\n    finally:\n        return 2",
+      "fix": "def f():\n    try:\n        return 1\n    finally:\n        print('Cleaning up')"
+    },
+    {
+      "buggy": "a = [1, 2, 3]\nb = a\na = [4, 5, 6]\nprint(b)",
+      "fix": "a = [1, 2, 3]\nb = a.copy()\na = [4, 5, 6]\nprint(b)"
+    },
+    {
+      "buggy": "def extend_list(val, list=[]):\n    list.append(val)\n    return list",
+      "fix": "def extend_list(val, list=None):\n    if list is None:\n        list = []\n    list.append(val)\n    return list"
+    },
+    {
+      "buggy": "def mystery(x=[]):\n    x.append(5)\n    return x\n\nprint(mystery())\nprint(mystery())",
+      "fix": "def mystery(x=None):\n    if x is None:\n        x = []\n    x.append(5)\n    return x\n\nprint(mystery())\nprint(mystery())"
+    },
+    {
+      "buggy": "for i in range(5):\n    print(i)\n    i += 1",
+      "fix": "for i in range(5):\n    print(i)"
+    },
+    {
+      "buggy": "def compare(a, b):\n    return a is b\n\nprint(compare(256, 256))\nprint(compare(257, 257))",
+      "fix": "def compare(a, b):\n    return a == b\n\nprint(compare(256, 256))\nprint(compare(257, 257))"
+    },
+    {
+      "buggy": "def flatten(lst):\n    return [i for i in lst if type(i) != list else flatten(i)]",
+      "fix": "def flatten(lst):\n    result = []\n    for i in lst:\n        if isinstance(i, list):\n            result.extend(flatten(i))\n        else:\n            result.append(i)\n    return result"
+    },
+    {
+      "buggy": "x = [1, 2, 3]\ny = x\nx += [4, 5]\nprint(y)",
+      "fix": "x = [1, 2, 3]\ny = x.copy()\nx += [4, 5]\nprint(y)"
+    },
+    {
+      "buggy": "d = {'one': 1, 'two': 2}\nfor k, v in d:\n    print(k, v)",
+      "fix": "d = {'one': 1, 'two': 2}\nfor k, v in d.items():\n    print(k, v)"
+    },
+    {
+      "buggy": "x = 10\ndef foo():\n    print(x)\n    x += 1\n\nfoo()",
+      "fix": "x = 10\ndef foo():\n    global x\n    print(x)\n    x += 1\n\nfoo()"
+    },
+    {
+      "buggy": "print('5' + 5)",
+      "fix": "print(int('5') + 5)"
+    },
+    {
+      "buggy": "a = [1, 2, 3]\nprint(a[3])",
+      "fix": "a = [1, 2, 3]\nprint(a[-1])"
+    },
+    {
+      "buggy": "def foo(x, y, z, x=1):\n    return x + y + z",
+      "fix": "def foo(a, b, c, x=1):\n    return x + b + c"
+    },
+    {
+      "buggy": "x = [1, 2, 3]\nprint(x[1:5])\nprint(x[3])",
+      "fix": "x = [1, 2, 3]\nprint(x[1:5])\n# print(x[3])  # IndexError"
+    },
+    {
+      "buggy": "class A:\n    def __init__(self):\n        self.x = 1\nclass B(A):\n    def __init__(self):\n        self.y = 2\n\nobj = B()\nprint(obj.x)",
+      "fix": "class A:\n    def __init__(self):\n        self.x = 1\nclass B(A):\n    def __init__(self):\n        super().__init__()\n        self.y = 2\n\nobj = B()\nprint(obj.x)"
+    },
+    {
+      "buggy": "def foo(bar=[]):\n    return bar\n\nfoo().append(1)\nprint(foo())",
+      "fix": "def foo(bar=None):\n    if bar is None:\n        bar = []\n    return bar\n\nfoo().append(1)\nprint(foo())"
+    }
+  ]

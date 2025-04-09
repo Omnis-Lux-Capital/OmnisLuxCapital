@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "let set: Set = [1, 2, 3, 2, 1]\nprint(set.count)",
+      "fix": "let set: Set<Int> = [1, 2, 3, 2, 1]\nprint(set.count)"
+    },
+    {
+      "buggy": "let numbers = [1, 2, 3, 4]\nlet slice = numbers[1...]\nprint(slice[0])",
+      "fix": "let numbers = [1, 2, 3, 4]\nlet slice = numbers[1...]\nprint(slice[slice.startIndex])"
+    },
+    {
+      "buggy": "var str = \"hello\"\nstr[0] = \"H\"",
+      "fix": "var str = \"hello\"\nstr.replaceSubrange(str.startIndex...str.startIndex, with: \"H\")"
+    },
+    {
+      "buggy": "let result = try? Int(\"abc\")!\nprint(result)",
+      "fix": "let result = Int(\"abc\")\nprint(result)"
+    },
+    {
+      "buggy": "let optionalInt: Int? = nil\nprint(optionalInt + 1)",
+      "fix": "let optionalInt: Int? = nil\nprint((optionalInt ?? 0) + 1)"
+    },
+    {
+      "buggy": "let dict = [\"a\": 1, \"b\": 2]\nprint(dict[\"c\"]!)",
+      "fix": "let dict = [\"a\": 1, \"b\": 2]\nprint(dict[\"c\"] ?? 0)"
+    },
+    {
+      "buggy": "protocol Flyable {}\nclass Bird {}\nlet bird = Bird()\nlet f: Flyable = bird",
+      "fix": "protocol Flyable {}\nclass Bird: Flyable {}\nlet bird = Bird()\nlet f: Flyable = bird"
+    },
+    {
+      "buggy": "var arr = [1, 2, 3]\nfor i in arr {\n    arr.remove(at: 0)\n}",
+      "fix": "var arr = [1, 2, 3]\nfor _ in arr {\n    arr.removeFirst()\n}"
+    },
+    {
+      "buggy": "let result = [1, 2, 3].map { $0 * 2 } .filter { $0 > 2 } .first { $0 > 4 }",
+      "fix": "let result = [1, 2, 3].map { $0 * 2 }.filter { $0 > 2 }.first(where: { $0 > 4 })"
+    },
+    {
+      "buggy": "var value: Any = 5\nlet stringValue = value as! String",
+      "fix": "var value: Any = 5\nlet stringValue = String(describing: value)"
+    },
+    {
+      "buggy": "let a: Int? = nil\nlet b: Int! = a\nprint(b + 1)",
+      "fix": "let a: Int? = nil\nif let b = a {\n    print(b + 1)\n} else {\n    print(\"nil\")\n}"
+    },
+    {
+      "buggy": "func test(_ val: Int...) {\n    print(val[2])\n}\ntest(1)",
+      "fix": "func test(_ val: Int...) {\n    if val.count > 2 {\n        print(val[2])\n    } else {\n        print(\"Index out of bounds\")\n    }\n}\ntest(1)"
+    },
+    {
+      "buggy": "let x: Double = 0.1 + 0.2\nif x == 0.3 {\n    print(\"Equal\")\n}",
+      "fix": "let x: Double = 0.1 + 0.2\nif abs(x - 0.3) < 0.0001 {\n    print(\"Equal\")\n}"
+    },
+    {
+      "buggy": "let array = [\"1\", \"2\", \"three\"]\nlet numbers = array.map { Int($0)! }",
+      "fix": "let array = [\"1\", \"2\", \"three\"]\nlet numbers = array.compactMap { Int($0) }"
+    },
+    {
+      "buggy": "class A {\n    deinit {\n        print(\"A deinit\")\n    }\n}\n\nvar closure: (() -> Void)?\n\nfunc create() {\n    let a = A()\n    closure = { print(a) }\n}\n\ncreate()",
+      "fix": "class A {\n    deinit {\n        print(\"A deinit\")\n    }\n}\n\nvar closure: (() -> Void)?\n\nfunc create() {\n    let a = A()\n    closure = { [weak a] in print(a ?? \"nil\") }\n}\n\ncreate()"
+    },
+    {
+      "buggy": "enum Direction: String {\n    case north, south, east, west = \"W\"\n}",
+      "fix": "enum Direction: String {\n    case north = \"N\", south = \"S\", east = \"E\", west = \"W\"\n}"
+    },
+    {
+      "buggy": "let numbers = [1, 2, 3]\nlet reversed = numbers.sorted(by: >).reversed()\nprint(reversed[0])",
+      "fix": "let numbers = [1, 2, 3]\nlet reversed = Array(numbers.sorted(by: >).reversed())\nprint(reversed[0])"
+    },
+    {
+      "buggy": "func greet(name: String = \"Guest\") {\n    print(\"Hello, \\(name)\")\n}\ngreet(nil)",
+      "fix": "func greet(name: String? = \"Guest\") {\n    print(\"Hello, \\(name ?? \"Guest\")\")\n}\ngreet(nil)"
+    },
+    {
+      "buggy": "let json = \"{ \\\"key\\\": 123 }\"\nlet data = json.data(using: .utf8)!\nlet obj = try JSONDecoder().decode([String: String].self, from: data)",
+      "fix": "let json = \"{ \\\"key\\\": 123 }\"\nlet data = json.data(using: .utf8)!\nlet obj = try JSONDecoder().decode([String: Int].self, from: data)"
+    },
+    {
+      "buggy": "let range = 0..<5\nprint(range[3])",
+      "fix": "let range = Array(0..<5)\nprint(range[3])"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+  {
+    "buggy": "class A\n  def foo\n    puts 'A'\n  end\nend\n\nclass B < A\n  def foo\n    super\n    puts 'B'\nend\n\nB.new.foo",
+    "fix": "class A\n  def foo\n    puts 'A'\n  end\nend\n\nclass B < A\n  def foo\n    super\n    puts 'B'\n  end\nend\n\nB.new.foo"
+  },
+  {
+    "buggy": "def factorial(n)\n  return 1 if n == 1\n  n * factorial(n - 1)\nend\n\nputs factorial(0)",
+    "fix": "def factorial(n)\n  return 1 if n <= 1\n  n * factorial(n - 1)\nend\n\nputs factorial(0)"
+  },
+  {
+    "buggy": "module A\n  def greet\n    puts 'Hello from A'\n  end\nend\n\nclass B\n  include A\n  def greet\n    puts 'Hello from B'\n  end\nend\n\nB.new.greet",
+    "fix": "module A\n  def greet\n    puts 'Hello from A'\n  end\nend\n\nclass B\n  include A\n  def greet\n    super\n    puts 'Hello from B'\n  end\nend\n\nB.new.greet"
+  },
+  {
+    "buggy": "def memoized(n, memo={})\n  return memo[n] if memo[n]\n  memo[n] = n < 2 ? n : memoized(n-1) + memoized(n-2)\nend\n\nputs memoized(10)",
+    "fix": "def memoized(n, memo = {})\n  return memo[n] if memo.key?(n)\n  memo[n] = n < 2 ? n : memoized(n - 1, memo) + memoized(n - 2, memo)\nend\n\nputs memoized(10)"
+  },
+  {
+    "buggy": "class Example\n  attr_reader :value\n  def initialize(val)\n    value = val\n  end\nend\n\nputs Example.new(10).value",
+    "fix": "class Example\n  attr_reader :value\n  def initialize(val)\n    @value = val\n  end\nend\n\nputs Example.new(10).value"
+  },
+  {
+    "buggy": "numbers = (1..10).to_a\nputs numbers.select(&:even?).map(&:to_s).join",
+    "fix": "numbers = (1..10).to_a\nputs numbers.select(&:even?).map(&:to_s).join(', ')"
+  },
+  {
+    "buggy": "def dangerous_eval(input)\n  eval(input)\nend\n\ndangerous_eval('puts `ls`')",
+    "fix": "def safe_eval(input)\n  puts 'Eval disabled for safety.'\nend\n\nsafe_eval('puts `ls`')"
+  },
+  {
+    "buggy": "class Parent\n  def greet\n    puts 'Hi'\n  end\nend\n\nclass Child < Parent\nend\n\nputs Child.new.greet('extra')",
+    "fix": "class Parent\n  def greet\n    puts 'Hi'\n  end\nend\n\nclass Child < Parent\nend\n\nputs Child.new.greet"
+  },
+  {
+    "buggy": "data = [1, [2, [3, 4]], 5]\nputs data.flatten(1)",
+    "fix": "data = [1, [2, [3, 4]], 5]\nputs data.flatten"
+  },
+  {
+    "buggy": "require 'json'\ndata = \"{ name: 'Ada' }\"\nputs JSON.parse(data)",
+    "fix": "require 'json'\ndata = '{ \"name\": \"Ada\" }'\nputs JSON.parse(data)"
+  },
+  {
+    "buggy": "class Logger\n  def log(message)\n    timestamp = Time.now\n    puts \"[timestamp] #{message}\"\n  end\nend\n\nLogger.new.log('Start')",
+    "fix": "class Logger\n  def log(message)\n    timestamp = Time.now\n    puts \"[#{timestamp}] #{message}\"\n  end\nend\n\nLogger.new.log('Start')"
+  },
+  {
+    "buggy": "def average(*nums)\n  nums.sum / nums.length\nend\n\nputs average()",
+    "fix": "def average(*nums)\n  return 0 if nums.empty?\n  nums.sum / nums.length\nend\n\nputs average()"
+  },
+  {
+    "buggy": "config = {timeout: 5}\nputs config.fetch(:retry)",
+    "fix": "config = {timeout: 5}\nputs config.fetch(:retry, 3)"
+  },
+  {
+    "buggy": "def parse_int(str)\n  Integer(str)\nrescue\n  'invalid'\nend\n\nputs parse_int(nil)",
+    "fix": "def parse_int(str)\n  Integer(str)\nrescue ArgumentError, TypeError\n  'invalid'\nend\n\nputs parse_int(nil)"
+  },
+  {
+    "buggy": "module M\n  def hello\n    puts 'M'\n  end\nend\n\nclass C\n  include M\nend\n\nclass D < C\n  def hello\n    puts 'D'\n    super\n  end\nend\n\nD.new.hello",
+    "fix": "module M\n  def hello\n    puts 'M'\n  end\nend\n\nclass C\n  include M\n  def hello\n    super\n  end\nend\n\nclass D < C\n  def hello\n    puts 'D'\n    super\n  end\nend\n\nD.new.hello"
+  },
+  {
+    "buggy": "user_input = '5'\nputs user_input * 2",
+    "fix": "user_input = '5'\nputs user_input.to_i * 2"
+  },
+  {
+    "buggy": "def increment_counter(counter = 0)\n  counter += 1\nend\n\nputs increment_counter\nputs increment_counter",
+    "fix": "def increment_counter(counter = nil)\n  counter ||= 0\n  counter += 1\nend\n\nputs increment_counter\nputs increment_counter"
+  },
+  {
+    "buggy": "arr = [1, 2, 3]\narr.each do |n|\n  next if n.even?\n  break\n  puts n\nend",
+    "fix": "arr = [1, 2, 3]\narr.each do |n|\n  next if n.even?\n  puts n\n  break\nend"
+  },
+  {
+    "buggy": "def format_price(price)\n  '$%.2f' % price\nend\n\nputs format_price('free')",
+    "fix": "def format_price(price)\n  return 'N/A' unless price.is_a?(Numeric)\n  '$%.2f' % price\nend\n\nputs format_price('free')"
+  },
+  {
+    "buggy": "def greeting(name = 'Guest')\n  'Hello, ' + name.upcase!\nend\n\nputs greeting(nil)",
+    "fix": "def greeting(name = 'Guest')\n  name = name || 'Guest'\n  'Hello, ' + name.upcase\nend\n\nputs greeting(nil)"
+  }
+]

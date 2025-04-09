@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "let obj = { a: 1 }\nObject.freeze(obj)\nobj.a = 2\nconsole.log(obj.a)",
+      "fix": "let obj = { a: 1 }\nobj = { ...obj, a: 2 }\nconsole.log(obj.a)"
+    },
+    {
+      "buggy": "let a = []\nif (a) {\n  console.log('Array is truthy')\n} else {\n  console.log('Array is falsy')\n}",
+      "fix": "let a = []\nif (Array.isArray(a)) {\n  console.log('Array is truthy')\n} else {\n  console.log('Array is falsy')\n}"
+    },
+    {
+      "buggy": "function A() {}\nA.prototype = { value: 10 }\nconst a = new A()\nconsole.log(a.constructor === A)",
+      "fix": "function A() {}\nA.prototype = { constructor: A, value: 10 }\nconst a = new A()\nconsole.log(a.constructor === A)"
+    },
+    {
+      "buggy": "let b = {}\nconsole.log(b.__proto__ === Object.prototype.__proto__)",
+      "fix": "let b = {}\nconsole.log(b.__proto__ === Object.prototype)"
+    },
+    {
+      "buggy": "let x = 1\nfunction test() {\n  console.log(x)\n  let x = 2\n}\ntest()",
+      "fix": "let x = 1\nfunction test() {\n  let x\n  console.log(x)\n  x = 2\n}\ntest()"
+    },
+    {
+      "buggy": "let obj = { a: 1 }\nObject.defineProperty(obj, 'a', { writable: false })\nobj.a = 2\nconsole.log(obj.a)",
+      "fix": "let obj = { a: 1 }\nObject.defineProperty(obj, 'a', { writable: true })\nobj.a = 2\nconsole.log(obj.a)"
+    },
+    {
+      "buggy": "let x = {} + []\nconsole.log(typeof x)",
+      "fix": "let x = {} + []\nconsole.log(typeof ({} + []))"
+    },
+    {
+      "buggy": "let func = () => {\n  return\n  {\n    value: 1\n  }\n}\nconsole.log(func())",
+      "fix": "let func = () => {\n  return {\n    value: 1\n  }\n}\nconsole.log(func())"
+    },
+    {
+      "buggy": "let count = 0\n(function increment() {\n  if (count++ < 5)\n    return increment\n})()()()()()()",
+      "fix": "let count = 0\n(function increment() {\n  if (count++ < 5)\n    return increment()\n})()"
+    },
+    {
+      "buggy": "let obj = { a: 1 }\ndelete obj.a\nconsole.log(obj.a)",
+      "fix": "let obj = { a: 1 }\nconsole.log(delete obj.a)\nconsole.log(obj.a)"
+    },
+    {
+      "buggy": "console.log([] == ![])",
+      "fix": "console.log([] == false)"
+    },
+    {
+      "buggy": "function* gen() {\n  yield 1\n  yield Promise.resolve(2)\n  yield 3\n}\nfor (let val of gen()) {\n  console.log(val)\n}",
+      "fix": "async function run() {\n  for await (let val of gen()) {\n    console.log(await val)\n  }\n}\nrun()"
+    },
+    {
+      "buggy": "let foo = { bar() { return this } }\nlet fn = foo.bar\nconsole.log(fn() === foo)",
+      "fix": "let foo = { bar() { return this } }\nlet fn = foo.bar.bind(foo)\nconsole.log(fn() === foo)"
+    },
+    {
+      "buggy": "const set = new Set([1, 1, 2, 3])\nconsole.log(set.length)",
+      "fix": "const set = new Set([1, 1, 2, 3])\nconsole.log(set.size)"
+    },
+    {
+      "buggy": "let obj = { get val() { return 1 } }\nobj.val = 2\nconsole.log(obj.val)",
+      "fix": "let obj = { get val() { return 1 }, set val(v) { this._val = v } }\nobj.val = 2\nconsole.log(obj.val)"
+    },
+    {
+      "buggy": "class A {\n  constructor() {\n    if (!new.target) throw 'Must use new'\n  }\n}\nA()",
+      "fix": "class A {\n  constructor() {\n    if (!new.target) throw 'Must use new'\n  }\n}\nnew A()"
+    },
+    {
+      "buggy": "let regex = /a+/g\nregex.test('aaa')\nregex.test('a')\nconsole.log(regex.lastIndex)",
+      "fix": "let regex = /a+/g\nregex.lastIndex = 0\nregex.test('aaa')\nregex.test('a')\nconsole.log(regex.lastIndex)"
+    },
+    {
+      "buggy": "console.log(typeof typeof 1 === 'number')",
+      "fix": "console.log(typeof typeof 1 === 'string')"
+    },
+    {
+      "buggy": "let x = { val: 10 }\nObject.seal(x)\ndelete x.val\nconsole.log(x.val)",
+      "fix": "let x = { val: 10 }\nObject.freeze(x)\nconsole.log(x.val)"
+    },
+    {
+      "buggy": "console.log((function() { return arguments }).length)",
+      "fix": "console.log((function() { return arguments }).length === 0)"
+    }
+  ]

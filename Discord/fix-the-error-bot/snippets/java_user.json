@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "public class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!)\";\n  }\n}",
+      "fix": "public class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}"
+    },
+    {
+      "buggy": "int x = 5\nSystem.out.println(x);",
+      "fix": "int x = 5;\nSystem.out.println(x);"
+    },
+    {
+      "buggy": "String name = \"Alex\";\nSystem.out.println('Hello ' + name);",
+      "fix": "String name = \"Alex\";\nSystem.out.println(\"Hello \" + name);"
+    },
+    {
+      "buggy": "if(x = 10) {\n  System.out.println(\"Ten\");\n}",
+      "fix": "if(x == 10) {\n  System.out.println(\"Ten\");\n}"
+    },
+    {
+      "buggy": "for(int i = 0; i < 10; i++)\n  System.out.println(i)",
+      "fix": "for(int i = 0; i < 10; i++)\n  System.out.println(i);"
+    },
+    {
+      "buggy": "System.out.printline(\"Test\");",
+      "fix": "System.out.println(\"Test\");"
+    },
+    {
+      "buggy": "double pi = 3.14;\nint whole = pi;",
+      "fix": "double pi = 3.14;\nint whole = (int) pi;"
+    },
+    {
+      "buggy": "String greeting = 'Hello';",
+      "fix": "String greeting = \"Hello\";"
+    },
+    {
+      "buggy": "int[] nums = new int[3];\nnums[3] = 10;",
+      "fix": "int[] nums = new int[3];\nnums[2] = 10;"
+    },
+    {
+      "buggy": "char grade = \"A\";",
+      "fix": "char grade = 'A';"
+    },
+    {
+      "buggy": "public void sayHello() {\n  return \"Hello\";\n}",
+      "fix": "public String sayHello() {\n  return \"Hello\";\n}"
+    },
+    {
+      "buggy": "boolean isTrue = 1;",
+      "fix": "boolean isTrue = true;"
+    },
+    {
+      "buggy": "if (true) {\n  System.out.println(\"Yes\");\n else {\n  System.out.println(\"No\");\n}",
+      "fix": "if (true) {\n  System.out.println(\"Yes\");\n} else {\n  System.out.println(\"No\");\n}"
+    },
+    {
+      "buggy": "System.out.println(\"Sum: \" + 5 + 3);",
+      "fix": "System.out.println(\"Sum: \" + (5 + 3));"
+    },
+    {
+      "buggy": "int num = Integer.parseInt(\"12.3\");",
+      "fix": "double num = Double.parseDouble(\"12.3\");"
+    },
+    {
+      "buggy": "List<String> names = new List<>();",
+      "fix": "List<String> names = new ArrayList<>();"
+    },
+    {
+      "buggy": "public class Example\n  int value = 10;\n}",
+      "fix": "public class Example {\n  int value = 10;\n}"
+    },
+    {
+      "buggy": "final int x;\nx = 10;\nx = 20;",
+      "fix": "final int x = 10;"
+    },
+    {
+      "buggy": "String[] fruits = {\"Apple\", \"Banana\";\nSystem.out.println(fruits[0]);",
+      "fix": "String[] fruits = {\"Apple\", \"Banana\"};\nSystem.out.println(fruits[0]);"
+    },
+    {
+      "buggy": "System.out.println(\"5\" + 5);",
+      "fix": "System.out.println(Integer.parseInt(\"5\") + 5);"
+    }
+  ]

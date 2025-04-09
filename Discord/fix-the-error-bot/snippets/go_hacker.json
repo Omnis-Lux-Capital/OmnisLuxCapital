@@ -1,0 +1,78 @@
+[
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    m := map[int]string{1: \"one\", 2: \"two\"}\n    for k, v := range m {\n        delete(m, k)\n        fmt.Println(v)\n    }\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    m := map[int]string{1: \"one\", 2: \"two\"}\n    keys := []int{}\n    for k := range m {\n        keys = append(keys, k)\n    }\n    for _, k := range keys {\n        fmt.Println(m[k])\n        delete(m, k)\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nimport (\n    \"fmt\"\n    \"sync\"\n)\n\nfunc main() {\n    var wg sync.WaitGroup\n    for i := 0; i < 5; i++ {\n        wg.Add(1)\n        go func() {\n            fmt.Println(i)\n            wg.Done()\n        }()\n    }\n    wg.Wait()\n}",
+      "fix": "package main\n\nimport (\n    \"fmt\"\n    \"sync\"\n)\n\nfunc main() {\n    var wg sync.WaitGroup\n    for i := 0; i < 5; i++ {\n        i := i\n        wg.Add(1)\n        go func() {\n            fmt.Println(i)\n            wg.Done()\n        }()\n    }\n    wg.Wait()\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\ntype Animal interface {\n    Speak() string\n}\n\ntype Dog struct{}\n\nfunc (d Dog) Speak() string {\n    return \"Woof\"\n}\n\nfunc main() {\n    var a Animal\n    fmt.Println(a.Speak())\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\ntype Animal interface {\n    Speak() string\n}\n\ntype Dog struct{}\n\nfunc (d Dog) Speak() string {\n    return \"Woof\"\n}\n\nfunc main() {\n    var a Animal = Dog{}\n    fmt.Println(a.Speak())\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    ch := make(chan int, 1)\n    ch <- 1\n    ch <- 2\n    fmt.Println(<-ch)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    ch := make(chan int, 2)\n    ch <- 1\n    ch <- 2\n    fmt.Println(<-ch)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var s []int\n    s[0] = 1\n    fmt.Println(s)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    s := make([]int, 1)\n    s[0] = 1\n    fmt.Println(s)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc reverse(s []int) []int {\n    for i := 0; i < len(s)/2; i++ {\n        s[i], s[len(s)-i] = s[len(s)-i], s[i]\n    }\n    return s\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc reverse(s []int) []int {\n    for i := 0; i < len(s)/2; i++ {\n        s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]\n    }\n    return s\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    defer fmt.Println(\"first\")\n    defer fmt.Println(\"second\")\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    defer fmt.Println(\"second\")\n    defer fmt.Println(\"first\")\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var i interface{} = 10\n    fmt.Println(i.(string))\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var i interface{} = 10\n    s, ok := i.(string)\n    if !ok {\n        fmt.Println(\"type assertion failed\")\n    } else {\n        fmt.Println(s)\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    arr := [3]int{1, 2, 3}\n    s := arr[:4]\n    fmt.Println(s)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    arr := [3]int{1, 2, 3}\n    s := arr[:3]\n    fmt.Println(s)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    result := add(1, 2, 3)\n    fmt.Println(result)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    result := add(1, 2)\n    fmt.Println(result)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc changeValue(m map[string]int) {\n    m = map[string]int{\"new\": 1}\n}\n\nfunc main() {\n    myMap := map[string]int{\"old\": 5}\n    changeValue(myMap)\n    fmt.Println(myMap)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc changeValue(m map[string]int) {\n    m[\"new\"] = 1\n}\n\nfunc main() {\n    myMap := map[string]int{\"old\": 5}\n    changeValue(myMap)\n    fmt.Println(myMap)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    var a *int\n    *a = 10\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    x := 10\n    a := &x\n    *a = 20\n    fmt.Println(x)\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    var m map[string]int\n    m[\"x\"] = 100\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    m := make(map[string]int)\n    m[\"x\"] = 100\n    fmt.Println(m)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc process(ch chan int) {\n    ch <- 5\n    ch <- 6\n    close(ch)\n}\n\nfunc main() {\n    var ch chan int\n    go process(ch)\n    for val := range ch {\n        fmt.Println(val)\n    }\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc process(ch chan int) {\n    ch <- 5\n    ch <- 6\n    close(ch)\n}\n\nfunc main() {\n    ch := make(chan int)\n    go process(ch)\n    for val := range ch {\n        fmt.Println(val)\n    }\n}"
+    },
+    {
+      "buggy": "package main\n\nfunc main() {\n    ch := make(chan int)\n    ch <- 1\n    val := <-ch\n    fmt.Println(val)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    ch := make(chan int)\n    go func() {\n        ch <- 1\n    }()\n    val := <-ch\n    fmt.Println(val)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc modify(s []int) {\n    s = append(s, 4)\n}\n\nfunc main() {\n    nums := []int{1, 2, 3}\n    modify(nums)\n    fmt.Println(nums)\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc modify(s *[]int) {\n    *s = append(*s, 4)\n}\n\nfunc main() {\n    nums := []int{1, 2, 3}\n    modify(&nums)\n    fmt.Println(nums)\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc doSomething() {\n    panic(\"error\")\n    fmt.Println(\"finished\")\n}\n\nfunc main() {\n    doSomething()\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc doSomething() {\n    defer fmt.Println(\"cleaning up\")\n    panic(\"error\")\n}\n\nfunc main() {\n    doSomething()\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    s := make([]int, 0, 2)\n    s = append(s, 1, 2, 3)\n    fmt.Println(s[3])\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    s := make([]int, 0, 2)\n    s = append(s, 1, 2, 3)\n    fmt.Println(s[2])\n}"
+    },
+    {
+      "buggy": "package main\n\nimport \"fmt\"\n\nfunc getVal(m map[string]int, k string) int {\n    return m[k]\n}\n\nfunc main() {\n    m := map[string]int{\"a\": 1}\n    fmt.Println(getVal(m, \"b\"))\n}",
+      "fix": "package main\n\nimport \"fmt\"\n\nfunc getVal(m map[string]int, k string) int {\n    val, ok := m[k]\n    if !ok {\n        return -1\n    }\n    return val\n}\n\nfunc main() {\n    m := map[string]int{\"a\": 1}\n    fmt.Println(getVal(m, \"b\"))\n}"
+    }
+  ]

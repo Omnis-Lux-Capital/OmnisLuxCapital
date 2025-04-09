@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "public class Person {\n  private String name;\n  public Person(String name) {\n    name = name;\n  }\n}",
+      "fix": "public class Person {\n  private String name;\n  public Person(String name) {\n    this.name = name;\n  }\n}"
+    },
+    {
+      "buggy": "List<String> names = new ArrayList<>();\nnames.add(\"Alice\");\nnames.add(\"Bob\");\nSystem.out.println(names.get(2));",
+      "fix": "List<String> names = new ArrayList<>();\nnames.add(\"Alice\");\nnames.add(\"Bob\");\nSystem.out.println(names.get(1));"
+    },
+    {
+      "buggy": "public void printMessage() {\n  String message = \"Hi\";\n}\nSystem.out.println(message);",
+      "fix": "public void printMessage() {\n  String message = \"Hi\";\n  System.out.println(message);\n}"
+    },
+    {
+      "buggy": "for(int i = 0; i <= 5; i++) {\n  if(i = 3) continue;\n  System.out.println(i);\n}",
+      "fix": "for(int i = 0; i <= 5; i++) {\n  if(i == 3) continue;\n  System.out.println(i);\n}"
+    },
+    {
+      "buggy": "String s = null;\nif (s.equals(\"test\")) {\n  System.out.println(\"Match\");\n}",
+      "fix": "String s = null;\nif (\"test\".equals(s)) {\n  System.out.println(\"Match\");\n}"
+    },
+    {
+      "buggy": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"A\", 1);\nmap.put(\"B\", 2);\nSystem.out.println(map[\"A\"]);",
+      "fix": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"A\", 1);\nmap.put(\"B\", 2);\nSystem.out.println(map.get(\"A\"));"
+    },
+    {
+      "buggy": "int[] numbers = {1, 2, 3};\nfor(int i : numbers) {\n  System.out.println(numbers[i]);\n}",
+      "fix": "int[] numbers = {1, 2, 3};\nfor(int i : numbers) {\n  System.out.println(i);\n}"
+    },
+    {
+      "buggy": "public static void main(String args) {\n  System.out.println(\"Hello\");\n}",
+      "fix": "public static void main(String[] args) {\n  System.out.println(\"Hello\");\n}"
+    },
+    {
+      "buggy": "class Base {}\nclass Child extends Base {}\nBase obj = new Child();\nChild c = (Child) obj;\nc = new Base();",
+      "fix": "class Base {}\nclass Child extends Base {}\nBase obj = new Child();\nChild c = (Child) obj;"
+    },
+    {
+      "buggy": "try {\n  int result = 10 / 0;\n} catch(Exception e) {}\nSystem.out.println(\"Done\");",
+      "fix": "try {\n  int result = 10 / 0;\n} catch(ArithmeticException e) {}\nSystem.out.println(\"Done\");"
+    },
+    {
+      "buggy": "String[] data = new String[5];\nfor(int i = 0; i <= 5; i++) {\n  data[i] = \"Val\";\n}",
+      "fix": "String[] data = new String[5];\nfor(int i = 0; i < 5; i++) {\n  data[i] = \"Val\";\n}"
+    },
+    {
+      "buggy": "class A {\n  private int value;\n}\nA obj = new A();\nSystem.out.println(obj.value);",
+      "fix": "class A {\n  private int value;\n  public int getValue() { return value; }\n}\nA obj = new A();\nSystem.out.println(obj.getValue());"
+    },
+    {
+      "buggy": "List<String> list = Arrays.asList(\"a\", \"b\", \"c\");\nlist.add(\"d\");",
+      "fix": "List<String> list = new ArrayList<>(Arrays.asList(\"a\", \"b\", \"c\"));\nlist.add(\"d\");"
+    },
+    {
+      "buggy": "public class Demo {\n  static int count = 0;\n  public void increment() {\n    count++;\n  }\n  public void print() {\n    System.out.println(count);\n  }\n}\nnew Demo().increment();\nnew Demo().print();",
+      "fix": "public class Demo {\n  static int count = 0;\n  public void increment() {\n    count++;\n  }\n  public void print() {\n    System.out.println(count);\n  }\n}\nDemo d = new Demo();\nd.increment();\nd.print();"
+    },
+    {
+      "buggy": "int a = 10;\nInteger b = null;\nif(a == b) {\n  System.out.println(\"Equal\");\n}",
+      "fix": "int a = 10;\nInteger b = null;\nif(b != null && a == b) {\n  System.out.println(\"Equal\");\n}"
+    },
+    {
+      "buggy": "String name = \"John\";\nswitch(name) {\n  case \"John\":\n    System.out.println(\"Hi\");\n  default:\n    System.out.println(\"Bye\");\n}",
+      "fix": "String name = \"John\";\nswitch(name) {\n  case \"John\":\n    System.out.println(\"Hi\");\n    break;\n  default:\n    System.out.println(\"Bye\");\n}"
+    },
+    {
+      "buggy": "int[] arr = null;\nif(arr.length == 0) {\n  System.out.println(\"Empty\");\n}",
+      "fix": "int[] arr = null;\nif(arr != null && arr.length == 0) {\n  System.out.println(\"Empty\");\n}"
+    },
+    {
+      "buggy": "String x = null;\nx.concat(\"hello\");",
+      "fix": "String x = null;\nx = \"\".concat(\"hello\");"
+    },
+    {
+      "buggy": "final int[] nums = {1, 2, 3};\nnums = new int[]{4, 5, 6};",
+      "fix": "int[] nums = {1, 2, 3};\nnums = new int[]{4, 5, 6};"
+    },
+    {
+      "buggy": "public class Test {\n  private static void display() {\n    System.out.println(\"Static\");\n  }\n  public void display() {\n    System.out.println(\"Instance\");\n  }\n}",
+      "fix": "public class Test {\n  private static void displayStatic() {\n    System.out.println(\"Static\");\n  }\n  public void display() {\n    System.out.println(\"Instance\");\n  }\n}"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "fn main() {\n    let s = String::from(\"hello\");\n    let len = calculate_length(s);\n    println!(\"The length is {}\", len);\n    println!(\"String: {}\", s);\n}\n\nfn calculate_length(s: String) -> usize {\n    s.len()\n}",
+      "fix": "fn main() {\n    let s = String::from(\"hello\");\n    let len = calculate_length(&s);\n    println!(\"The length is {}\", len);\n    println!(\"String: {}\", s);\n}\n\nfn calculate_length(s: &String) -> usize {\n    s.len()\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1;\n    println!(\"{} {}\", s1, s2);\n}",
+      "fix": "fn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1.clone();\n    println!(\"{} {}\", s1, s2);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r1 = &s;\n    let r2 = &mut s;\n    println!(\"{}\", r1);\n}",
+      "fix": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r2 = &mut s;\n    println!(\"{}\", r2);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut count = 0;\n    let counter = move || {\n        count += 1;\n        count\n    };\n    println!(\"{}\", counter());\n}",
+      "fix": "fn main() {\n    let mut count = 0;\n    let mut counter = move || {\n        count += 1;\n        count\n    };\n    println!(\"{}\", counter());\n}"
+    },
+    {
+      "buggy": "fn divide(a: i32, b: i32) -> Result<i32, String> {\n    if b == 0 {\n        Err(\"Cannot divide by zero\")\n    } else {\n        Ok(a / b)\n    }\n}",
+      "fix": "fn divide(a: i32, b: i32) -> Result<i32, String> {\n    if b == 0 {\n        Err(\"Cannot divide by zero\".to_string())\n    } else {\n        Ok(a / b)\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let name: Option<String> = None;\n    println!(\"Hello, {}!\", name.unwrap());\n}",
+      "fix": "fn main() {\n    let name: Option<String> = Some(String::from(\"world\"));\n    println!(\"Hello, {}!\", name.unwrap());\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = vec![1, 2, 3];\n    for i in x {\n        println!(\"{}\", i);\n    }\n    println!(\"{:?}\", x);\n}",
+      "fix": "fn main() {\n    let x = vec![1, 2, 3];\n    for i in &x {\n        println!(\"{}\", i);\n    }\n    println!(\"{:?}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x: i32 = \"10\".parse();\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x: i32 = \"10\".parse().unwrap();\n    println!(\"{}\", x);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut s = String::from(\"hello\");\n    takes_ownership(s);\n    println!(\"{}\", s);\n}\n\nfn takes_ownership(s: String) {\n    println!(\"{}\", s);\n}",
+      "fix": "fn main() {\n    let s = String::from(\"hello\");\n    takes_ownership(&s);\n    println!(\"{}\", s);\n}\n\nfn takes_ownership(s: &String) {\n    println!(\"{}\", s);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = 5;\n    let y = x;\n    println!(\"{} {}\", x, y);\n    x = 10;\n}",
+      "fix": "fn main() {\n    let mut x = 5;\n    let y = x;\n    println!(\"{} {}\", x, y);\n    x = 10;\n}"
+    },
+    {
+      "buggy": "struct Person {\n    name: String,\n    age: u8\n}\n\nfn main() {\n    let p = Person { name: \"Alice\", age: 30 };\n    println!(\"{}\", p.name);\n}",
+      "fix": "struct Person {\n    name: String,\n    age: u8\n}\n\nfn main() {\n    let p = Person { name: String::from(\"Alice\"), age: 30 };\n    println!(\"{}\", p.name);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut v = vec![1, 2, 3];\n    let r = &v[0];\n    v.push(4);\n    println!(\"{}\", r);\n}",
+      "fix": "fn main() {\n    let mut v = vec![1, 2, 3];\n    v.push(4);\n    let r = &v[0];\n    println!(\"{}\", r);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut x = 10;\n    let y = &mut x;\n    let z = &mut x;\n    println!(\"{} {}\", y, z);\n}",
+      "fix": "fn main() {\n    let mut x = 10;\n    {\n        let y = &mut x;\n        println!(\"{}\", y);\n    }\n    let z = &mut x;\n    println!(\"{}\", z);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut data = vec![1, 2, 3];\n    let first = &data[0];\n    data.push(4);\n    println!(\"{}\", first);\n}",
+      "fix": "fn main() {\n    let mut data = vec![1, 2, 3];\n    data.push(4);\n    let first = &data[0];\n    println!(\"{}\", first);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = Box::new(5);\n    let y = x;\n    println!(\"{}\", x);\n}",
+      "fix": "fn main() {\n    let x = Box::new(5);\n    let y = x;\n    println!(\"{}\", y);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r1 = &s;\n    s.push_str(\" world\");\n    println!(\"{}\", r1);\n}",
+      "fix": "fn main() {\n    let mut s = String::from(\"hello\");\n    s.push_str(\" world\");\n    println!(\"{}\", s);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut num = 10;\n    let r = &mut num;\n    *r += 5;\n    println!(\"{}\", num);\n}",
+      "fix": "fn main() {\n    let mut num = 10;\n    {\n        let r = &mut num;\n        *r += 5;\n    }\n    println!(\"{}\", num);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let x = [1, 2, 3];\n    let slice = &x[0..4];\n    println!(\"{:?}\", slice);\n}",
+      "fix": "fn main() {\n    let x = [1, 2, 3];\n    let slice = &x[0..3];\n    println!(\"{:?}\", slice);\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut x = 1;\n    let a = &mut x;\n    let b = &mut x;\n    *a += 1;\n    *b += 1;\n}",
+      "fix": "fn main() {\n    let mut x = 1;\n    {\n        let a = &mut x;\n        *a += 1;\n    }\n    {\n        let b = &mut x;\n        *b += 1;\n    }\n}"
+    },
+    {
+      "buggy": "fn main() {\n    let mut count = 0;\n    let add = |x| count += x;\n    add(5);\n    println!(\"{}\", count);\n}",
+      "fix": "fn main() {\n    let mut count = 0;\n    let mut add = |x| count += x;\n    add(5);\n    println!(\"{}\", count);\n}"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<div><h3>Main Title</h3><h2>Subheading</h2></div>",
+      "fix": "<div><h1>Main Title</h1><h2>Subheading</h2></div>"
+    },
+    {
+      "buggy": "<div><p>Welcome to our <div>site</div></p></div>",
+      "fix": "<div><p>Welcome to our <span>site</span></p></div>"
+    },
+    {
+      "buggy": "<section><article><section><h1>Title</h1></section></article></section>",
+      "fix": "<section><article><h1>Title</h1></article></section>"
+    },
+    {
+      "buggy": "<ul><li>Item 1<ul><li>Subitem</li></ul></ul>",
+      "fix": "<ul><li>Item 1<ul><li>Subitem</li></ul></li></ul>"
+    },
+    {
+      "buggy": "<button><span>Submit</button></span>",
+      "fix": "<button><span>Submit</span></button>"
+    },
+    {
+      "buggy": "<img src='image.png' alt=''><figcaption>This is the image</figcaption>",
+      "fix": "<figure><img src='image.png' alt=''><figcaption>This is the image</figcaption></figure>"
+    },
+    {
+      "buggy": "<div><h2>Header</h2><p>Paragraph<div>Text</div></p></div>",
+      "fix": "<div><h2>Header</h2><p>Paragraph</p><div>Text</div></div>"
+    },
+    {
+      "buggy": "<nav><a>Home</a><a>About</a></nav>",
+      "fix": "<nav><ul><li><a href='#'>Home</a></li><li><a href='#'>About</a></li></ul></nav>"
+    },
+    {
+      "buggy": "<html><body><div>Content</div></body><footer>Footer</footer></html>",
+      "fix": "<html><body><div>Content</div><footer>Footer</footer></body></html>"
+    },
+    {
+      "buggy": "<form><label>Email<input type='email'></form></label>",
+      "fix": "<form><label for='email'>Email</label><input id='email' type='email'></form>"
+    },
+    {
+      "buggy": "<dl><dt>Term<dd>Definition</dl>",
+      "fix": "<dl><dt>Term</dt><dd>Definition</dd></dl>"
+    },
+    {
+      "buggy": "<table><thead><tr><td>Header</td></tr></thead></table>",
+      "fix": "<table><thead><tr><th>Header</th></tr></thead></table>"
+    },
+    {
+      "buggy": "<section><h2>Title</h2><h2>Subtitle</h2><h4>Detail</h4></section>",
+      "fix": "<section><h2>Title</h2><h3>Subtitle</h3><h4>Detail</h4></section>"
+    },
+    {
+      "buggy": "<input type='text' aria-label='Name'><label>Name</label>",
+      "fix": "<label for='name'>Name</label><input id='name' type='text'>"
+    },
+    {
+      "buggy": "<div><img src='logo.png'><p>Company name</p></div>",
+      "fix": "<figure><img src='logo.png' alt='Company logo'><figcaption>Company name</figcaption></figure>"
+    },
+    {
+      "buggy": "<form><input placeholder='Email'><input type='submit'></form>",
+      "fix": "<form><label for='email'>Email</label><input id='email' placeholder='Email'><input type='submit'></form>"
+    },
+    {
+      "buggy": "<article><section><article><h2>Nested</h2></article></section></article>",
+      "fix": "<article><section><div><h2>Nested</h2></div></section></article>"
+    },
+    {
+      "buggy": "<button><img src='icon.png'>Download</button>",
+      "fix": "<button><img src='icon.png' alt='Download icon'>Download</button>"
+    },
+    {
+      "buggy": "<table><tr><th>Item</th><th>Qty</th></tr><tr><td>Apple<td>3</td></tr></table>",
+      "fix": "<table><tr><th>Item</th><th>Qty</th></tr><tr><td>Apple</td><td>3</td></tr></table>"
+    },
+    {
+      "buggy": "<div><label for='opt'>Option:</label><select><option>One</option></select></div>",
+      "fix": "<div><label for='opt'>Option:</label><select id='opt'><option>One</option></select></div>"
+    }
+  ]

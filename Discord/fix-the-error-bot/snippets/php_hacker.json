@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<?php\nfunction &getValue() {\n  $var = 5;\n  return $var;\n}\n$val = &getValue();\n$val = 10;\necho $val;",
+      "fix": "<?php\nfunction &getValue() {\n  static $var = 5;\n  return $var;\n}\n$val = &getValue();\n$val = 10;\necho $val;"
+    },
+    {
+      "buggy": "<?php\nclass A {\n  function __destruct() {\n    echo 'Done';\n  }\n}\n$obj = new A();\nexit;\necho 'Still running';",
+      "fix": "<?php\nclass A {\n  function __destruct() {\n    echo 'Done';\n  }\n}\n$obj = new A();\nregister_shutdown_function(function() {\n  echo 'Still running';\n});\nexit;"
+    },
+    {
+      "buggy": "<?php\n$a = 'value';\n$b = &$a;\nunset($a);\necho $b;",
+      "fix": "<?php\n$a = 'value';\n$b = &$a;\nunset($a);\necho isset($b) ? $b : 'undefined';"
+    },
+    {
+      "buggy": "<?php\nfunction test($arg = func_get_arg(0)) {\n  return $arg;\n}",
+      "fix": "<?php\nfunction test() {\n  $args = func_get_args();\n  return $args[0];\n}"
+    },
+    {
+      "buggy": "<?php\n$array = ['a' => 1, 'b' => 2];\nforeach ($array as $key => &$val) {}\n$extra = ['c' => 3];\nforeach ($extra as $key => $val) {}\necho $val;",
+      "fix": "<?php\n$array = ['a' => 1, 'b' => 2];\nforeach ($array as $key => &$val) {}\nunset($val);\n$extra = ['c' => 3];\nforeach ($extra as $key => $val) {}\necho $val;"
+    },
+    {
+      "buggy": "<?php\n$fp = fopen('test.txt', 'w');\nfwrite($fp, 'hello');\necho file_get_contents('test.txt');",
+      "fix": "<?php\n$fp = fopen('test.txt', 'w');\nfwrite($fp, 'hello');\nfclose($fp);\necho file_get_contents('test.txt');"
+    },
+    {
+      "buggy": "<?php\n$array = [1, 2, 3];\necho each($array)[1];",
+      "fix": "<?php\n$array = [1, 2, 3];\n$first = current($array);\necho $first;"
+    },
+    {
+      "buggy": "<?php\nclass Test {\n  private $data = [];\n  function __get($name) {\n    return $this->$name;\n  }\n}\n$t = new Test();\necho $t->data;",
+      "fix": "<?php\nclass Test {\n  private $data = [];\n  function __get($name) {\n    return $this->$name ?? null;\n  }\n}\n$t = new Test();\necho $t->data;"
+    },
+    {
+      "buggy": "<?php\n$a = 0.1 + 0.2;\nif ($a == 0.3) echo 'Equal';",
+      "fix": "<?php\n$a = 0.1 + 0.2;\nif (abs($a - 0.3) < 0.00001) echo 'Equal';"
+    },
+    {
+      "buggy": "<?php\nclass A {\n  function say() {\n    echo 'Hi';\n  }\n}\nclass B extends A {\n  function say($msg) {\n    echo $msg;\n  }\n}\n$b = new B();\n$b->say();",
+      "fix": "<?php\nclass A {\n  function say() {\n    echo 'Hi';\n  }\n}\nclass B extends A {\n  function say($msg = 'Hi') {\n    echo $msg;\n  }\n}\n$b = new B();\n$b->say();"
+    },
+    {
+      "buggy": "<?php\nfunction example($x = null) {\n  if ($x === NULL) {\n    echo 'No argument';\n  }\n}\nexample();",
+      "fix": "<?php\nfunction example(...$args) {\n  if (count($args) === 0) {\n    echo 'No argument';\n  }\n}\nexample();"
+    },
+    {
+      "buggy": "<?php\n$x = 5;\nfunction change() {\n  $x++;\n}\nchange();\necho $x;",
+      "fix": "<?php\n$x = 5;\nfunction change() {\n  global $x;\n  $x++;\n}\nchange();\necho $x;"
+    },
+    {
+      "buggy": "<?php\n$json = '{name: \"John\"}';\n$data = json_decode($json);\necho $data->name;",
+      "fix": "<?php\n$json = '{\"name\": \"John\"}';\n$data = json_decode($json);\necho $data->name;"
+    },
+    {
+      "buggy": "<?php\nfunction test($a, $b) {\n  return $a <=> $b;\n}\necho test('10', 2);",
+      "fix": "<?php\nfunction test($a, $b) {\n  return $a <=> (string)$b;\n}\necho test('10', 2);"
+    },
+    {
+      "buggy": "<?php\n$date = new DateTime('2020-13-01');\necho $date->format('Y-m-d');",
+      "fix": "<?php\n$date = DateTime::createFromFormat('Y-m-d', '2020-13-01');\nif ($date === false) {\n  echo 'Invalid date';\n}"
+    },
+    {
+      "buggy": "<?php\n$path = '/path/to/file';\necho basename($path, '.txt');",
+      "fix": "<?php\n$path = '/path/to/file.txt';\necho basename($path, '.txt');"
+    },
+    {
+      "buggy": "<?php\nsetcookie('token', 'abc');\necho $_COOKIE['token'];",
+      "fix": "<?php\nsetcookie('token', 'abc');\n// On next request:\n// echo $_COOKIE['token'];"
+    },
+    {
+      "buggy": "<?php\n$array = ['a' => 1, 'b' => 2];\necho key($array);\nnext($array);\necho key($array);\nreset($array);\necho key($array);\nend($array);\necho key($array);\nnext($array);\necho key($array);",
+      "fix": "<?php\n$array = ['a' => 1, 'b' => 2];\necho key($array);\nnext($array);\necho key($array);\nreset($array);\necho key($array);\nend($array);\necho key($array);\nnext($array);\necho key($array) === null ? 'End' : key($array);"
+    },
+    {
+      "buggy": "<?php\nclass Singleton {\n  private static $instance;\n  private function __construct() {}\n  public static function getInstance() {\n    if (!self::$instance) {\n      self::$instance = new Singleton;\n    }\n    return self::$instance;\n  }\n}\n$one = Singleton::getInstance();\n$two = clone $one;",
+      "fix": "<?php\nclass Singleton {\n  private static $instance;\n  private function __construct() {}\n  private function __clone() {}\n  public static function getInstance() {\n    if (!self::$instance) {\n      self::$instance = new Singleton;\n    }\n    return self::$instance;\n  }\n}"
+    },
+    {
+      "buggy": "<?php\nfunction risky($a) {\n  return @$a['key'];\n}\necho risky(null);",
+      "fix": "<?php\nfunction risky($a) {\n  return is_array($a) && isset($a['key']) ? $a['key'] : 'undefined';\n}\necho risky(null);"
+    }
+  ]

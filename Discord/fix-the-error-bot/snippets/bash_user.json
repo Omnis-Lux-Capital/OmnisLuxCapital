@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "echo 'Hello, $name'",
+      "fix": "name=\"World\"\necho \"Hello, $name\""
+    },
+    {
+      "buggy": "if [ $num -gt 10 ]\n  echo \"Big number\"\nfi",
+      "fix": "if [ $num -gt 10 ]; then\n  echo \"Big number\"\nfi"
+    },
+    {
+      "buggy": "for i in 1 2 3\n  do\n    echo $i\ndone",
+      "fix": "for i in 1 2 3; do\n  echo $i\ndone"
+    },
+    {
+      "buggy": "echo Hello > file.txt > file2.txt",
+      "fix": "echo Hello > file.txt\ncp file.txt file2.txt"
+    },
+    {
+      "buggy": "read -p Enter your name: name\necho Hello, $name",
+      "fix": "read -p \"Enter your name: \" name\necho \"Hello, $name\""
+    },
+    {
+      "buggy": "if [ $var = 5 ]; then\n  echo Equal\nfi",
+      "fix": "if [ \"$var\" = \"5\" ]; then\n  echo Equal\nfi"
+    },
+    {
+      "buggy": "echo Today is date",
+      "fix": "echo \"Today is $(date)\""
+    },
+    {
+      "buggy": "echo $((2 + ))",
+      "fix": "echo $((2 + 2))"
+    },
+    {
+      "buggy": "ls -l | grep '.txt",
+      "fix": "ls -l | grep '.txt'"
+    },
+    {
+      "buggy": "for file in *.txt; echo $file; done",
+      "fix": "for file in *.txt; do\n  echo $file\ndone"
+    },
+    {
+      "buggy": "if [ -f myfile.txt ]\n  echo File exists\nfi",
+      "fix": "if [ -f myfile.txt ]; then\n  echo \"File exists\"\nfi"
+    },
+    {
+      "buggy": "echo ${name:-Guest",
+      "fix": "echo ${name:-Guest}"
+    },
+    {
+      "buggy": "function greet {\n  echo Hello\n}",
+      "fix": "function greet() {\n  echo Hello\n}"
+    },
+    {
+      "buggy": "echo $1 + $2",
+      "fix": "echo $(($1 + $2))"
+    },
+    {
+      "buggy": "name=John\nif [ $name == \"John\" ]; then\n  echo Hi\nfi",
+      "fix": "name=John\nif [ \"$name\" = \"John\" ]; then\n  echo Hi\nfi"
+    },
+    {
+      "buggy": "echo \"Path is: $PATHS\"",
+      "fix": "echo \"Path is: $PATH\""
+    },
+    {
+      "buggy": "echo \"Files: \" ls",
+      "fix": "echo \"Files:\"\nls"
+    },
+    {
+      "buggy": "while [ $i -lt 5 ]\n  echo $i\n  ((i++))\ndone",
+      "fix": "i=0\nwhile [ $i -lt 5 ]; do\n  echo $i\n  ((i++))\ndone"
+    },
+    {
+      "buggy": "cat < file.txt | grep 'test'",
+      "fix": "grep 'test' < file.txt"
+    },
+    {
+      "buggy": "echo {1..5",
+      "fix": "echo {1..5}"
+    }
+  ]

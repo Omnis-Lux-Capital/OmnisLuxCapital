@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "using System;\nclass Program {\n  static void Main() {\n    Console.WriteLine(\"Hello World\")\n  }\n}",
+      "fix": "using System;\nclass Program {\n  static void Main() {\n    Console.WriteLine(\"Hello World\");\n  }\n}"
+    },
+    {
+      "buggy": "class Person {\n  public string name;\n  public Person(string n) {\n    name = n;\n  }\n}\nPerson p = new Person();",
+      "fix": "class Person {\n  public string name;\n  public Person(string n) {\n    name = n;\n  }\n}\nPerson p = new Person(\"John\");"
+    },
+    {
+      "buggy": "int x = \"5\";",
+      "fix": "int x = int.Parse(\"5\");"
+    },
+    {
+      "buggy": "List<string> names = new List<string>();\nnames.Add(1);",
+      "fix": "List<string> names = new List<string>();\nnames.Add(\"1\");"
+    },
+    {
+      "buggy": "int[] numbers = {1, 2, 3};\nConsole.WriteLine(numbers[3]);",
+      "fix": "int[] numbers = {1, 2, 3};\nConsole.WriteLine(numbers[2]);"
+    },
+    {
+      "buggy": "string greeting = null;\nif(greeting.Length > 0) {\n  Console.WriteLine(greeting);\n}",
+      "fix": "string greeting = null;\nif(!string.IsNullOrEmpty(greeting)) {\n  Console.WriteLine(greeting);\n}"
+    },
+    {
+      "buggy": "for(int i = 0; i <= 5; i++) {\n  Console.WriteLine(i);\n}\nConsole.WriteLine(i);",
+      "fix": "for(int i = 0; i <= 5; i++) {\n  Console.WriteLine(i);\n}\n// i is out of scope here"
+    },
+    {
+      "buggy": "if(x = 5) {\n  Console.WriteLine(\"Five\");\n}",
+      "fix": "if(x == 5) {\n  Console.WriteLine(\"Five\");\n}"
+    },
+    {
+      "buggy": "int x = 10\nConsole.WriteLine(x);",
+      "fix": "int x = 10;\nConsole.WriteLine(x);"
+    },
+    {
+      "buggy": "using System;\npublic class Program {\n  static Main(string[] args) {\n    Console.WriteLine(\"Run\");\n  }\n}",
+      "fix": "using System;\npublic class Program {\n  static void Main(string[] args) {\n    Console.WriteLine(\"Run\");\n  }\n}"
+    },
+    {
+      "buggy": "string word = 'hello';",
+      "fix": "string word = \"hello\";"
+    },
+    {
+      "buggy": "Console.Write(\"Enter name: \");\nstring name;\nConsole.ReadLine(name);",
+      "fix": "Console.Write(\"Enter name: \");\nstring name = Console.ReadLine();"
+    },
+    {
+      "buggy": "bool isTrue = true;\nif(isTrue = false) {\n  Console.WriteLine(\"Yes\");\n}",
+      "fix": "bool isTrue = true;\nif(isTrue == false) {\n  Console.WriteLine(\"Yes\");\n}"
+    },
+    {
+      "buggy": "double num = 10.5;\nint result = num;",
+      "fix": "double num = 10.5;\nint result = (int)num;"
+    },
+    {
+      "buggy": "int? age = null;\nConsole.WriteLine(age.Value);",
+      "fix": "int? age = null;\nif(age.HasValue) {\n  Console.WriteLine(age.Value);\n}"
+    },
+    {
+      "buggy": "int[] values = new int[3];\nvalues[0] = 1;\nvalues[1] = 2;\nvalues[2] = 3;\nvalues[3] = 4;",
+      "fix": "int[] values = new int[4];\nvalues[0] = 1;\nvalues[1] = 2;\nvalues[2] = 3;\nvalues[3] = 4;"
+    },
+    {
+      "buggy": "string text = \"C#\";\ntext[0] = 'c';",
+      "fix": "string text = \"C#\";\ntext = 'c' + text.Substring(1);"
+    },
+    {
+      "buggy": "var x = null;",
+      "fix": "object x = null;"
+    },
+    {
+      "buggy": "int x = 0;\nswitch(x) {\n  case 0:\n    Console.WriteLine(\"Zero\");\n  case 1:\n    Console.WriteLine(\"One\");\n}",
+      "fix": "int x = 0;\nswitch(x) {\n  case 0:\n    Console.WriteLine(\"Zero\");\n    break;\n  case 1:\n    Console.WriteLine(\"One\");\n    break;\n}"
+    },
+    {
+      "buggy": "Console.WriteLine(Math.Pow(2));",
+      "fix": "Console.WriteLine(Math.Pow(2, 2));"
+    }
+  ]

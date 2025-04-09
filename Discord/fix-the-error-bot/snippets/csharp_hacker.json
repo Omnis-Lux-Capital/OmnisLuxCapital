@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "class MyClass {\n  public event EventHandler MyEvent;\n  public void Trigger() {\n    MyEvent();\n  }\n}",
+      "fix": "class MyClass {\n  public event EventHandler MyEvent;\n  public void Trigger() {\n    MyEvent?.Invoke(this, EventArgs.Empty);\n  }\n}"
+    },
+    {
+      "buggy": "interface IAnimal {\n  void Speak() {\n    Console.WriteLine(\"Roar\");\n  }\n}",
+      "fix": "interface IAnimal {\n  void Speak();\n}"
+    },
+    {
+      "buggy": "lock(this) {\n  Console.WriteLine(\"Locked\");\n}",
+      "fix": "private readonly object _lock = new object();\nlock(_lock) {\n  Console.WriteLine(\"Locked\");\n}"
+    },
+    {
+      "buggy": "public class Singleton {\n  private static Singleton instance;\n  public static Singleton GetInstance() {\n    if(instance == null)\n      instance = new Singleton();\n    return instance;\n  }\n}",
+      "fix": "public class Singleton {\n  private static readonly Singleton instance = new Singleton();\n  public static Singleton GetInstance() => instance;\n}"
+    },
+    {
+      "buggy": "public abstract class Base {\n  public abstract void DoWork() {}\n}",
+      "fix": "public abstract class Base {\n  public abstract void DoWork();\n}"
+    },
+    {
+      "buggy": "string json = \"{name: 'John'}\";\nvar obj = JsonSerializer.Deserialize<Person>(json);",
+      "fix": "string json = \"{\\\"name\\\": \\\"John\\\"}\";\nvar obj = JsonSerializer.Deserialize<Person>(json);"
+    },
+    {
+      "buggy": "Span<int> span = new int[] {1, 2, 3};",
+      "fix": "Span<int> span = new Span<int>(new int[] {1, 2, 3});"
+    },
+    {
+      "buggy": "Func<int, int> square = x => { return x * x };",
+      "fix": "Func<int, int> square = x => { return x * x; };"
+    },
+    {
+      "buggy": "public class Base {\n  public void Print() => Console.WriteLine(\"Base\");\n}\npublic class Derived : Base {\n  public new void Print() => Console.WriteLine(\"Derived\");\n}\nBase obj = new Derived();\nobj.Print();",
+      "fix": "Base obj = new Derived();\n((Derived)obj).Print();"
+    },
+    {
+      "buggy": "int x = 5;\nint y = 10;\nSwap(x, y);\nConsole.WriteLine(x);\n\nvoid Swap(int a, int b) {\n  int temp = a;\n  a = b;\n  b = temp;\n}",
+      "fix": "void Swap(ref int a, ref int b) {\n  int temp = a;\n  a = b;\n  b = temp;\n}\nSwap(ref x, ref y);"
+    },
+    {
+      "buggy": "public class User {\n  private string _email;\n  public string Email {\n    get => _email;\n    set => value;\n  }\n}",
+      "fix": "public class User {\n  private string _email;\n  public string Email {\n    get => _email;\n    set => _email = value;\n  }\n}"
+    },
+    {
+      "buggy": "public void Process(List<string> items = new List<string>()) {\n  items.Add(\"data\");\n}",
+      "fix": "public void Process(List<string> items = null) {\n  items = items ?? new List<string>();\n  items.Add(\"data\");\n}"
+    },
+    {
+      "buggy": "var result = from num in numbers\n             where num > 5\n             select;\nConsole.WriteLine(result);",
+      "fix": "var result = from num in numbers\n             where num > 5\n             select num;\nConsole.WriteLine(result);"
+    },
+    {
+      "buggy": "public class MyClass {\n  ~MyClass() {\n    Dispose();\n  }\n}",
+      "fix": "public class MyClass : IDisposable {\n  ~MyClass() {\n    Dispose();\n  }\n  public void Dispose() {\n    GC.SuppressFinalize(this);\n  }\n}"
+    },
+    {
+      "buggy": "Thread t = new Thread(() => Console.WriteLine(\"Run\"));\nt.Start;\nt.Join();",
+      "fix": "Thread t = new Thread(() => Console.WriteLine(\"Run\"));\nt.Start();\nt.Join();"
+    },
+    {
+      "buggy": "string.Format(\"{0} {1}\", \"Hello\");",
+      "fix": "string.Format(\"{0} {1}\", \"Hello\", \"World\");"
+    },
+    {
+      "buggy": "int[] nums = new int[2];\nnums[0] = 1;\nnums[1] = 2;\nnums[2] = 3;",
+      "fix": "int[] nums = new int[3];\nnums[0] = 1;\nnums[1] = 2;\nnums[2] = 3;"
+    },
+    {
+      "buggy": "Dictionary<int, string> map = new Dictionary<int, string>();\nmap[null] = \"test\";",
+      "fix": "Dictionary<int?, string> map = new Dictionary<int?, string>();\nmap[null] = \"test\";"
+    },
+    {
+      "buggy": "object o = null;\nif(o is string s && s.Length > 0) {\n  Console.WriteLine(s);\n}",
+      "fix": "object o = null;\nif(o is string s && !string.IsNullOrEmpty(s)) {\n  Console.WriteLine(s);\n}"
+    },
+    {
+      "buggy": "public class Program {\n  public async void Run() {\n    await Task.Delay(1000);\n  }\n}",
+      "fix": "public class Program {\n  public async Task RunAsync() {\n    await Task.Delay(1000);\n  }\n}"
+    }
+  ]

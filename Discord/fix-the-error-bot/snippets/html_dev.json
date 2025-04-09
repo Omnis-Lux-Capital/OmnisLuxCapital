@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<section><h1>Main Title</h1><h1>Sub Title</h1></section>",
+      "fix": "<section><h1>Main Title</h1><h2>Sub Title</h2></section>"
+    },
+    {
+      "buggy": "<label>Name:</label><input type='text' id='name'>",
+      "fix": "<label for='name'>Name:</label><input type='text' id='name'>"
+    },
+    {
+      "buggy": "<table><tr><td>Data</td></tr><caption>Table Caption</caption></table>",
+      "fix": "<table><caption>Table Caption</caption><tr><td>Data</td></tr></table>"
+    },
+    {
+      "buggy": "<nav><div><a href='/'>Home</a></div><p>Not a nav item</p></nav>",
+      "fix": "<nav><ul><li><a href='/'>Home</a></li></ul></nav>"
+    },
+    {
+      "buggy": "<input type='text' required='false'>",
+      "fix": "<input type='text'>"
+    },
+    {
+      "buggy": "<html><head><title>Page</title></head><p>Missing body</p></html>",
+      "fix": "<html><head><title>Page</title></head><body><p>Missing body</p></body></html>"
+    },
+    {
+      "buggy": "<button onclick='doSomething()'>Click</button>",
+      "fix": "<button type='button' onclick='doSomething()'>Click</button>"
+    },
+    {
+      "buggy": "<form><input type='submit' value='Submit'></form><input type='text'>",
+      "fix": "<form><input type='text'><input type='submit' value='Submit'></form>"
+    },
+    {
+      "buggy": "<ul><li>Item 1<li>Item 2<li>Item 3</ul>",
+      "fix": "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>"
+    },
+    {
+      "buggy": "<video controls src='movie.mp4'></video><track kind='captions' src='subs.vtt'>",
+      "fix": "<video controls src='movie.mp4'><track kind='captions' src='subs.vtt'></video>"
+    },
+    {
+      "buggy": "<input type='checkbox' checked='checked' value='false'>",
+      "fix": "<input type='checkbox'>"
+    },
+    {
+      "buggy": "<div style='display: flex; justify-content: center center;'>Text</div>",
+      "fix": "<div style='display: flex; justify-content: center;'>Text</div>"
+    },
+    {
+      "buggy": "<header><footer>Footer in header</footer></header>",
+      "fix": "<header>Header content</header><footer>Footer content</footer>"
+    },
+    {
+      "buggy": "<select><option>One<option>Two</select>",
+      "fix": "<select><option>One</option><option>Two</option></select>"
+    },
+    {
+      "buggy": "<meta name='viewport' content='width=width-device, initial-scale=1.0'>",
+      "fix": "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+    },
+    {
+      "buggy": "<article><h1>Heading</h1><div><article>Nested</article></div></article>",
+      "fix": "<article><h1>Heading</h1><div><section>Nested</section></div></article>"
+    },
+    {
+      "buggy": "<form method='get' action='/search'><button>Submit</button></form>",
+      "fix": "<form method='get' action='/search'><button type='submit'>Submit</button></form>"
+    },
+    {
+      "buggy": "<audio><source src='song.mp3' type='audio/mpeg'></audio><p>Your browser does not support audio.</p>",
+      "fix": "<audio controls><source src='song.mp3' type='audio/mpeg'>Your browser does not support audio.</audio>"
+    },
+    {
+      "buggy": "<div role='button'>Click me</div>",
+      "fix": "<button>Click me</button>"
+    },
+    {
+      "buggy": "<input type='email' name='email' placeholder='email@domain'>",
+      "fix": "<input type='email' name='email' placeholder='email@domain.com'>"
+    }
+  ]

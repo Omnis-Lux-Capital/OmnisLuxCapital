@@ -1,0 +1,78 @@
+[
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int* ptr = NULL;\n  *ptr = 10;\n  std::cout << *ptr;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int val = 10;\n  int* ptr = &val;\n  std::cout << *ptr;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nvoid greet(string name) {\n  std::cout << \"Hello \" << name;\n}\nint main() {\n  greet(\"Sam\");\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <string>\nusing namespace std;\nvoid greet(string name) {\n  cout << \"Hello \" << name;\n}\nint main() {\n  greet(\"Sam\");\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int x = 10;\n  if (x = 5) {\n    std::cout << \"Five\";\n  }\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int x = 10;\n  if (x == 5) {\n    std::cout << \"Five\";\n  }\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int arr[2] = {1, 2};\n  arr[2] = 3;\n  std::cout << arr[2];\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int arr[3] = {1, 2};\n  arr[2] = 3;\n  std::cout << arr[2];\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nvoid printSum(int a, int b = 5, int c);\nint main() {\n  printSum(1, 2);\n  return 0;\n}",
+      "fix": "#include <iostream>\nvoid printSum(int a, int b, int c = 0);\nint main() {\n  printSum(1, 2);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Person {\npublic:\n  string name;\n  void greet() {\n    cout << \"Hi \" << name;\n  }\n};\nint main() {\n  Person p;\n  p.name = \"Ana\";\n  p.greet();\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <string>\nusing namespace std;\nclass Person {\npublic:\n  string name;\n  void greet() {\n    cout << \"Hi \" << name;\n  }\n};\nint main() {\n  Person p;\n  p.name = \"Ana\";\n  p.greet();\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\ntemplate <typename T>\nT add(T a, T b) {\n  return a + b;\n}\nint main() {\n  std::cout << add(2, \"3\");\n  return 0;\n}",
+      "fix": "#include <iostream>\ntemplate <typename T>\nT add(T a, T b) {\n  return a + b;\n}\nint main() {\n  std::cout << add(2, 3);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint& getRef() {\n  int x = 10;\n  return x;\n}\nint main() {\n  int y = getRef();\n  std::cout << y;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint getVal() {\n  int x = 10;\n  return x;\n}\nint main() {\n  int y = getVal();\n  std::cout << y;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nvoid greet() {\n  std::cout << \"Hello\" << std::endl;\n}\nint main() {\n  greet;\n  return 0;\n}",
+      "fix": "#include <iostream>\nvoid greet() {\n  std::cout << \"Hello\" << std::endl;\n}\nint main() {\n  greet();\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  std::string s = \"abc\";\n  std::cout << s.at(5);\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  std::string s = \"abc\";\n  std::cout << s.at(2);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Car {\n  Car() {\n    std::cout << \"Car created\";\n  }\n};\nint main() {\n  Car c;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass Car {\npublic:\n  Car() {\n    std::cout << \"Car created\";\n  }\n};\nint main() {\n  Car c;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Base {\npublic:\n  virtual void show() {\n    std::cout << \"Base\";\n  }\n};\nclass Derived : public Base {\n  void show() {\n    std::cout << \"Derived\";\n  }\n};\nint main() {\n  Base* b = new Derived();\n  b->show();\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass Base {\npublic:\n  virtual void show() {\n    std::cout << \"Base\";\n  }\n};\nclass Derived : public Base {\npublic:\n  void show() override {\n    std::cout << \"Derived\";\n  }\n};\nint main() {\n  Base* b = new Derived();\n  b->show();\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nvoid func(const int* ptr) {\n  *ptr = 5;\n}\nint main() {\n  int x = 10;\n  func(&x);\n  std::cout << x;\n  return 0;\n}",
+      "fix": "#include <iostream>\nvoid func(int* ptr) {\n  *ptr = 5;\n}\nint main() {\n  int x = 10;\n  func(&x);\n  std::cout << x;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int* arr = new int[5];\n  // forgot delete[]\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int* arr = new int[5];\n  delete[] arr;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass A {\n  ~A() {\n    std::cout << \"Destructor\";\n  }\n};\nint main() {\n  A a;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass A {\npublic:\n  ~A() {\n    std::cout << \"Destructor\";\n  }\n};\nint main() {\n  A a;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int x = 10;\n  int& y;\n  y = x;\n  std::cout << y;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int x = 10;\n  int& y = x;\n  std::cout << y;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  char* str = \"Hello\";\n  str[0] = 'h';\n  std::cout << str;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  char str[] = \"Hello\";\n  str[0] = 'h';\n  std::cout << str;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\n#include <vector>\nint main() {\n  std::vector<int> v(3);\n  v[3] = 10;\n  std::cout << v[3];\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <vector>\nint main() {\n  std::vector<int> v(4);\n  v[3] = 10;\n  std::cout << v[3];\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\n#include <string>\nint main() {\n  std::string s = \"abc\";\n  s.push('d');\n  std::cout << s;\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <string>\nint main() {\n  std::string s = \"abc\";\n  s.push_back('d');\n  std::cout << s;\n  return 0;\n}"
+    }
+  ]

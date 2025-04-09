@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "let age: number = '25';",
+      "fix": "let age: number = 25;"
+    },
+    {
+      "buggy": "function greet(name: string) {\n  return 'Hello, ' + name;\n}\ngreet(42);",
+      "fix": "greet('Alice');"
+    },
+    {
+      "buggy": "let isDone: boolean = 'false';",
+      "fix": "let isDone: boolean = false;"
+    },
+    {
+      "buggy": "interface Person {\n  name: string;\n  age: number;\n}\n\nlet user: Person = {\n  name: 'John'\n};",
+      "fix": "let user: Person = {\n  name: 'John',\n  age: 30\n};"
+    },
+    {
+      "buggy": "const add = (a: number, b: number): number => {\n  return a + b;\n}\n\nadd(5);",
+      "fix": "add(5, 10);"
+    },
+    {
+      "buggy": "let list: number[] = [1, 2, '3'];",
+      "fix": "let list: number[] = [1, 2, 3];"
+    },
+    {
+      "buggy": "function multiply(a: number, b: number) {\n  return a * b;\n}\n\nlet result: string = multiply(2, 3);",
+      "fix": "let result: number = multiply(2, 3);"
+    },
+    {
+      "buggy": "let username: string = null;",
+      "fix": "let username: string | null = null;"
+    },
+    {
+      "buggy": "function printLength(str: string | null) {\n  return str.length;\n}",
+      "fix": "function printLength(str: string | null) {\n  return str?.length;\n}"
+    },
+    {
+      "buggy": "let value = <string>100;",
+      "fix": "let value = 100 as unknown as string;"
+    },
+    {
+      "buggy": "let color: 'red' | 'blue' = 'green';",
+      "fix": "let color: 'red' | 'blue' = 'red';"
+    },
+    {
+      "buggy": "let tuple: [number, string] = ['hello', 5];",
+      "fix": "let tuple: [number, string] = [5, 'hello'];"
+    },
+    {
+      "buggy": "function getData(): void {\n  return 'data';\n}",
+      "fix": "function getData(): string {\n  return 'data';\n}"
+    },
+    {
+      "buggy": "const sayHi = (name: string) => {\n  console.log('Hi, ' + name);\n};\n\nsayHi();",
+      "fix": "sayHi('Sam');"
+    },
+    {
+      "buggy": "let obj: { id: number; name: string } = { id: 1 };",
+      "fix": "let obj: { id: number; name: string } = { id: 1, name: 'Alice' };"
+    },
+    {
+      "buggy": "function divide(a: number, b: number) {\n  return a / b;\n}\n\ndivide(10, '2');",
+      "fix": "divide(10, 2);"
+    },
+    {
+      "buggy": "let prices: Array<number> = [10, 20, '30'];",
+      "fix": "let prices: Array<number> = [10, 20, 30];"
+    },
+    {
+      "buggy": "let data: any = '123';\nlet length: number = data.lenght;",
+      "fix": "let length: number = data.length;"
+    },
+    {
+      "buggy": "const greet = (name: string): string => {\n  console.log('Hello, ' + name);\n};",
+      "fix": "const greet = (name: string): void => {\n  console.log('Hello, ' + name);\n};"
+    },
+    {
+      "buggy": "let bool: boolean = Boolean('false');\nif (bool === 'false') {\n  console.log('It is false');\n}",
+      "fix": "if (bool === false) {\n  console.log('It is false');\n}"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "body { color: blue",
+      "fix": "body { color: blue; }"
+    },
+    {
+      "buggy": "p { font-size 16px; }",
+      "fix": "p { font-size: 16px; }"
+    },
+    {
+      "buggy": "h1 { text-align: centre; }",
+      "fix": "h1 { text-align: center; }"
+    },
+    {
+      "buggy": "div { background-color: #f00 }",
+      "fix": "div { background-color: #f00; }"
+    },
+    {
+      "buggy": "a { text-decoration none; }",
+      "fix": "a { text-decoration: none; }"
+    },
+    {
+      "buggy": ".box { width: 100px height: 100px; }",
+      "fix": ".box { width: 100px; height: 100px; }"
+    },
+    {
+      "buggy": "#main { padding: 10px 20px 30px }",
+      "fix": "#main { padding: 10px 20px 30px; }"
+    },
+    {
+      "buggy": "ul li { list-style-type: disc }",
+      "fix": "ul li { list-style-type: disc; }"
+    },
+    {
+      "buggy": ".container { display block; }",
+      "fix": ".container { display: block; }"
+    },
+    {
+      "buggy": ".header { background: rgba(0,0,0,0.5",
+      "fix": ".header { background: rgba(0,0,0,0.5); }"
+    },
+    {
+      "buggy": "button { border none; }",
+      "fix": "button { border: none; }"
+    },
+    {
+      "buggy": "img { max-width: 100% height: auto; }",
+      "fix": "img { max-width: 100%; height: auto; }"
+    },
+    {
+      "buggy": ".nav { position: absolute top: 0; }",
+      "fix": ".nav { position: absolute; top: 0; }"
+    },
+    {
+      "buggy": "input[type='text'] { border-color: red; color black; }",
+      "fix": "input[type='text'] { border-color: red; color: black; }"
+    },
+    {
+      "buggy": ".footer { margin: 20px auto }",
+      "fix": ".footer { margin: 20px auto; }"
+    },
+    {
+      "buggy": ".title { font-weigth: bold; }",
+      "fix": ".title { font-weight: bold; }"
+    },
+    {
+      "buggy": "main { max-width 960px; margin: auto; }",
+      "fix": "main { max-width: 960px; margin: auto; }"
+    },
+    {
+      "buggy": ".btn { background-color: #008CBA padding: 10px; }",
+      "fix": ".btn { background-color: #008CBA; padding: 10px; }"
+    },
+    {
+      "buggy": ".box { box-shadow: 0px 4px 6px #000 }",
+      "fix": ".box { box-shadow: 0px 4px 6px #000; }"
+    },
+    {
+      "buggy": "p { line-height 1.5 }",
+      "fix": "p { line-height: 1.5; }"
+    }
+  ]

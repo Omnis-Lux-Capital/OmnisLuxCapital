@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "5.times do |i|\n  puts i\nend\nputs i",
+      "fix": "5.times do |i|\n  puts i\nend\n# puts i # undefined local variable"
+    },
+    {
+      "buggy": "def greet(name)\n  \"Hello, #{Name}\"\nend",
+      "fix": "def greet(name)\n  \"Hello, #{name}\"\nend"
+    },
+    {
+      "buggy": "array = [1, 2, 3]\nputs array.fetch(5)",
+      "fix": "array = [1, 2, 3]\nputs array.fetch(5, 'default')"
+    },
+    {
+      "buggy": "hash = { a: 1, b: 2 }\nputs hash[:c]",
+      "fix": "hash = { a: 1, b: 2 }\nputs hash.fetch(:c, 'not found')"
+    },
+    {
+      "buggy": "puts 'Hello'.reverse!.upcase!",
+      "fix": "str = 'Hello'\nstr.reverse!\nputs str.upcase!"
+    },
+    {
+      "buggy": "def add(a, b = 2, c)\n  a + b + c\nend",
+      "fix": "def add(a, c, b = 2)\n  a + b + c\nend"
+    },
+    {
+      "buggy": "arr = [1, 2, 3]\narr.each do |x|\n  next if x == 2\n  break if x == 3\n  puts x\nend",
+      "fix": "arr = [1, 2, 3]\narr.each do |x|\n  next if x == 2\n  puts x\n  break if x == 3\nend"
+    },
+    {
+      "buggy": "def countdown(n)\n  puts n\n  countdown(n - 1)\nend\n\ncountdown(5)",
+      "fix": "def countdown(n)\n  return if n <= 0\n  puts n\n  countdown(n - 1)\nend\n\ncountdown(5)"
+    },
+    {
+      "buggy": "puts nil.upcase",
+      "fix": "puts nil.to_s.upcase"
+    },
+    {
+      "buggy": "def identity(x)\n  return x\n  puts 'unreachable'\nend",
+      "fix": "def identity(x)\n  puts 'executing'\n  x\nend"
+    },
+    {
+      "buggy": "puts '1' + 2",
+      "fix": "puts '1' + 2.to_s"
+    },
+    {
+      "buggy": "value = gets\nputs value * 3",
+      "fix": "value = gets.chomp.to_i\nputs value * 3"
+    },
+    {
+      "buggy": "hash = {}\nhash[:key].upcase!",
+      "fix": "hash = {}\nputs hash[:key]&.upcase"
+    },
+    {
+      "buggy": "def valid_email?(email)\n  email.include?('@') && email.include?('.com')\nend",
+      "fix": "def valid_email?(email)\n  email.match?(/\\A[^@\\s]+@[^@\\s]+\\.com\\z/)\nend"
+    },
+    {
+      "buggy": "arr = [1, 2, 3]\narr.delete(4)\nputs arr",
+      "fix": "arr = [1, 2, 3]\narr.delete(4) rescue nil\nputs arr"
+    },
+    {
+      "buggy": "puts 'word'.split('')[-5]",
+      "fix": "puts 'word'.split('').fetch(-5, 'out of bounds')"
+    },
+    {
+      "buggy": "def greet\n  puts 'Hello'\nend\n\nputs greet",
+      "fix": "def greet\n  'Hello'\nend\n\nputs greet"
+    },
+    {
+      "buggy": "name = 'Ada'\nputs name.nil?",
+      "fix": "name = 'Ada'\nputs name.nil? ? 'No name' : name"
+    },
+    {
+      "buggy": "puts ['a', 'b', 'c'].map { |c| c.upcase! }",
+      "fix": "puts ['a', 'b', 'c'].map(&:upcase)"
+    },
+    {
+      "buggy": "file = File.open('missing.txt')\ndata = file.read\nfile.close",
+      "fix": "begin\n  file = File.open('missing.txt')\n  data = file.read\n  file.close\nrescue => e\n  puts e.message\nend"
+    }
+  ]

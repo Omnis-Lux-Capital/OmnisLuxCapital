@@ -1,0 +1,78 @@
+[
+    {
+      "buggy": "#include <iostream>\nint main() {\n  const int x = 10;\n  int* ptr = const_cast<int*>(&x);\n  *ptr = 20;\n  std::cout << x;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int x = 10;\n  int* ptr = &x;\n  *ptr = 20;\n  std::cout << x;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass A {\npublic:\n  A(int& ref) : val(ref) {}\nprivate:\n  int val;\n};\nint main() {\n  int x = 5;\n  A a(x);\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass A {\npublic:\n  A(int& ref) : val(ref) {}\nprivate:\n  int& val;\n};\nint main() {\n  int x = 5;\n  A a(x);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\ntemplate<typename T>\nvoid func(T x) {\n  if constexpr (std::is_integral<T>::value) {\n    std::cout << x;\n  }\n}\nint main() {\n  func(5);\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <type_traits>\ntemplate<typename T>\nvoid func(T x) {\n  if constexpr (std::is_integral<T>::value) {\n    std::cout << x;\n  }\n}\nint main() {\n  func(5);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass B {\npublic:\n  virtual void f() final {}\n};\nclass D : public B {\n  void f() override {}\n};\nint main() {\n  D d;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass B {\npublic:\n  virtual void f() final {}\n};\nclass D : public B {\n  // Cannot override final method\n};\nint main() {\n  D d;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Test {\n  Test() { std::cout << \"Private\"; }\n};\nint main() {\n  Test t;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass Test {\npublic:\n  Test() { std::cout << \"Private\"; }\n};\nint main() {\n  Test t;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass X {\n  X(X&& other) { std::cout << \"Move\"; }\n};\nint main() {\n  X x1;\n  X x2 = std::move(x1);\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass X {\npublic:\n  X() {}\n  X(X&& other) { std::cout << \"Move\"; }\n};\nint main() {\n  X x1;\n  X x2 = std::move(x1);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass C {\n  ~C() { std::cout << \"Destroyed\"; }\n};\nint main() {\n  C* c = new C();\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass C {\n  ~C() { std::cout << \"Destroyed\"; }\n};\nint main() {\n  C* c = new C();\n  delete c;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nvoid print(int&& x) {\n  std::cout << x;\n}\nint main() {\n  int a = 10;\n  print(a);\n  return 0;\n}",
+      "fix": "#include <iostream>\nvoid print(int&& x) {\n  std::cout << x;\n}\nint main() {\n  int a = 10;\n  print(std::move(a));\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass A {\npublic:\n  A() { throw std::runtime_error(\"Fail\"); }\n};\nint main() {\n  try {\n    A a;\n  }\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <stdexcept>\nclass A {\npublic:\n  A() { throw std::runtime_error(\"Fail\"); }\n};\nint main() {\n  try {\n    A a;\n  } catch (const std::exception& e) {\n    std::cout << e.what();\n  }\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nstruct S {\n  int x;\n  S() = default;\n};\nint main() {\n  S s = {x: 5};\n  return 0;\n}",
+      "fix": "#include <iostream>\nstruct S {\n  int x;\n  S() = default;\n};\nint main() {\n  S s = {.x = 5};\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass A {\npublic:\n  void foo() const {\n    x++;\n  }\nprivate:\n  int x = 0;\n};\nint main() {\n  A a;\n  a.foo();\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass A {\npublic:\n  void foo() {\n    x++;\n  }\nprivate:\n  int x = 0;\n};\nint main() {\n  A a;\n  a.foo();\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  char* str = new char[5];\n  strcpy(str, \"hello\");\n  std::cout << str;\n  return 0;\n}",
+      "fix": "#include <iostream>\n#include <cstring>\nint main() {\n  char* str = new char[6];\n  strcpy(str, \"hello\");\n  std::cout << str;\n  delete[] str;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nstruct A {\n  A() = delete;\n};\nint main() {\n  A a;\n  return 0;\n}",
+      "fix": "#include <iostream>\nstruct A {\n  A() = default;\n};\nint main() {\n  A a;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Widget {\npublic:\n  Widget(int x = 0) {}\n};\nint main() {\n  Widget w = nullptr;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass Widget {\npublic:\n  Widget(std::nullptr_t) {}\n};\nint main() {\n  Widget w = nullptr;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass A {\n  A(const A&) = delete;\n};\nint main() {\n  A a;\n  A b = a;\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass A {\npublic:\n  A() {}\n  A(const A&) = default;\n};\nint main() {\n  A a;\n  A b = a;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nnamespace my {\n  int val = 5;\n}\nint main() {\n  using namespace my;\n  std::cout << val;\n  return 0;\n}",
+      "fix": "#include <iostream>\nnamespace my {\n  int val = 5;\n}\nint main() {\n  std::cout << my::val;\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  auto lambda = [](int a, int b) return a + b;\n  std::cout << lambda(1,2);\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  auto lambda = [](int a, int b) { return a + b; };\n  std::cout << lambda(1,2);\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nclass Example {\n  static int x = 10;\n};\nint main() {\n  return 0;\n}",
+      "fix": "#include <iostream>\nclass Example {\n  static int x;\n};\nint Example::x = 10;\nint main() {\n  return 0;\n}"
+    },
+    {
+      "buggy": "#include <iostream>\nint main() {\n  int a = 5;\n  int* b = &a;\n  delete b;\n  return 0;\n}",
+      "fix": "#include <iostream>\nint main() {\n  int* b = new int(5);\n  delete b;\n  return 0;\n}"
+    }
+  ]

@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "function logMessage(msg?: string) {\n  console.log(msg.length);\n}",
+      "fix": "function logMessage(msg?: string) {\n  console.log(msg?.length);\n}"
+    },
+    {
+      "buggy": "enum Status {\n  Active,\n  Inactive = 'INACTIVE'\n}",
+      "fix": "enum Status {\n  Active = 'ACTIVE',\n  Inactive = 'INACTIVE'\n}"
+    },
+    {
+      "buggy": "function identity<T>(arg: T): T {\n  return arg.length;\n}",
+      "fix": "function identity<T>(arg: T): T {\n  return arg;\n}"
+    },
+    {
+      "buggy": "interface User {\n  name: string;\n  age?: number;\n}\n\nconst user: User = {\n  name: 'John',\n  age: undefined\n};",
+      "fix": "const user: User = {\n  name: 'John'\n};"
+    },
+    {
+      "buggy": "const items = [1, 2, 3];\nconst doubled: string[] = items.map(n => n * 2);",
+      "fix": "const doubled: number[] = items.map(n => n * 2);"
+    },
+    {
+      "buggy": "async function fetchData() {\n  const response = await fetch('/api');\n  const data: string = await response.json();\n  return data;\n}",
+      "fix": "const data: any = await response.json();"
+    },
+    {
+      "buggy": "function process(value: unknown) {\n  console.log(value.toUpperCase());\n}",
+      "fix": "function process(value: unknown) {\n  if (typeof value === 'string') {\n    console.log(value.toUpperCase());\n  }\n}"
+    },
+    {
+      "buggy": "let result = parseInt('hello');\nlet score: number = result;",
+      "fix": "let score: number = Number.isNaN(result) ? 0 : result;"
+    },
+    {
+      "buggy": "interface Post {\n  title: string;\n  content: string;\n}\n\nconst post: Post = {\n  title: 'Hello'\n};",
+      "fix": "const post: Post = {\n  title: 'Hello',\n  content: 'World'\n};"
+    },
+    {
+      "buggy": "function printValue(input: string | number) {\n  console.log(input.toUpperCase());\n}",
+      "fix": "function printValue(input: string | number) {\n  if (typeof input === 'string') {\n    console.log(input.toUpperCase());\n  }\n}"
+    },
+    {
+      "buggy": "let person = JSON.parse('{ name: \"Alice\" }') as { name: string; age: number };",
+      "fix": "let person = JSON.parse('{\"name\": \"Alice\", \"age\": 30}') as { name: string; age: number };"
+    },
+    {
+      "buggy": "const names: readonly string[] = ['Alice', 'Bob'];\nnames.push('Charlie');",
+      "fix": "const names: string[] = ['Alice', 'Bob'];\nnames.push('Charlie');"
+    },
+    {
+      "buggy": "let length: number = (<string>123).length;",
+      "fix": "let length: number = (123 as unknown as string).length;"
+    },
+    {
+      "buggy": "function merge(a: object, b: object): object {\n  return {...a, ...b};\n}\nmerge(1, { key: 'value' });",
+      "fix": "merge({}, { key: 'value' });"
+    },
+    {
+      "buggy": "let point: [number, number, number] = [1, 2];",
+      "fix": "let point: [number, number, number] = [1, 2, 0];"
+    },
+    {
+      "buggy": "const greet = (name: string | null) => {\n  return 'Hello, ' + name.toUpperCase();\n};",
+      "fix": "return 'Hello, ' + name?.toUpperCase();"
+    },
+    {
+      "buggy": "type Shape = 'circle' | 'square';\nlet s: Shape = 'triangle';",
+      "fix": "let s: Shape = 'circle';"
+    },
+    {
+      "buggy": "function sum(...args: number): number {\n  return args.reduce((a, b) => a + b);\n}",
+      "fix": "function sum(...args: number[]): number {\n  return args.reduce((a, b) => a + b);\n}"
+    },
+    {
+      "buggy": "type Config = { mode: 'dark' | 'light'; };\nconst config: Config = { mode: 'auto' };",
+      "fix": "const config: Config = { mode: 'dark' };"
+    },
+    {
+      "buggy": "interface Product {\n  name: string;\n  price: number;\n}\n\nconst p: Product = {\n  name: 'Book',\n  price: '19.99'\n};",
+      "fix": "const p: Product = {\n  name: 'Book',\n  price: 19.99\n};"
+    }
+  ]

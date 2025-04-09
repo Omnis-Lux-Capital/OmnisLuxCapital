@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "SELECT department, COUNT(*)\nFROM employees\nGROUP BY;",
+      "fix": "SELECT department, COUNT(*)\nFROM employees\nGROUP BY department;"
+    },
+    {
+      "buggy": "SELECT *\nFROM orders\nWHERE order_date BETWEEN '2022-01-01' AND;",
+      "fix": "SELECT *\nFROM orders\nWHERE order_date BETWEEN '2022-01-01' AND '2022-12-31';"
+    },
+    {
+      "buggy": "SELECT name\nFROM students\nWHERE grade = A;",
+      "fix": "SELECT name\nFROM students\nWHERE grade = 'A';"
+    },
+    {
+      "buggy": "SELECT name\nFROM users\nWHERE age > 18 AND < 30;",
+      "fix": "SELECT name\nFROM users\nWHERE age > 18 AND age < 30;"
+    },
+    {
+      "buggy": "SELECT AVG(salary)\nFROM employees\nGROUP department;",
+      "fix": "SELECT AVG(salary)\nFROM employees\nGROUP BY department;"
+    },
+    {
+      "buggy": "UPDATE products\nSET price = price * 1.1\nWHERE;",
+      "fix": "UPDATE products\nSET price = price * 1.1\nWHERE category = 'Electronics';"
+    },
+    {
+      "buggy": "SELECT COUNT(id)\nFROM customers\nHAVING COUNT(id) > 5;",
+      "fix": "SELECT COUNT(id)\nFROM customers\nGROUP BY region\nHAVING COUNT(id) > 5;"
+    },
+    {
+      "buggy": "INSERT INTO orders (id, customer, total)\nVALUES (1, 'John', 99.99)",
+      "fix": "INSERT INTO orders (id, customer, total)\nVALUES (1, 'John', 99.99);"
+    },
+    {
+      "buggy": "SELECT name\nFROM users\nORDER age;",
+      "fix": "SELECT name\nFROM users\nORDER BY age;"
+    },
+    {
+      "buggy": "SELECT *\nFROM employees\nWHERE salary BETWEEN 50000 TO 80000;",
+      "fix": "SELECT *\nFROM employees\nWHERE salary BETWEEN 50000 AND 80000;"
+    },
+    {
+      "buggy": "SELECT COUNT(DISTINCT)\nFROM sales;",
+      "fix": "SELECT COUNT(DISTINCT customer_id)\nFROM sales;"
+    },
+    {
+      "buggy": "SELECT product\nFROM inventory\nWHERE quantity != NULL;",
+      "fix": "SELECT product\nFROM inventory\nWHERE quantity IS NOT NULL;"
+    },
+    {
+      "buggy": "UPDATE accounts\nSET balance = balance - 100\nWHERE account_id = 123",
+      "fix": "UPDATE accounts\nSET balance = balance - 100\nWHERE account_id = 123;"
+    },
+    {
+      "buggy": "DELETE FROM users\nWHERE name LIKE 'J%';\nAND active = 0;",
+      "fix": "DELETE FROM users\nWHERE name LIKE 'J%' AND active = 0;"
+    },
+    {
+      "buggy": "CREATE TABLE orders\nid INT,\ntotal DECIMAL(10,2);",
+      "fix": "CREATE TABLE orders (\nid INT,\ntotal DECIMAL(10,2)\n);"
+    },
+    {
+      "buggy": "SELECT name, email\nFROM customers\nLIMIT;",
+      "fix": "SELECT name, email\nFROM customers\nLIMIT 10;"
+    },
+    {
+      "buggy": "SELECT SUM(price)\nFROM sales\nWHERE date = '2023-04-01'",
+      "fix": "SELECT SUM(price)\nFROM sales\nWHERE date = '2023-04-01';"
+    },
+    {
+      "buggy": "SELECT *\nFROM employees\nWHERE department = 'Sales'\nAND;",
+      "fix": "SELECT *\nFROM employees\nWHERE department = 'Sales'\nAND status = 'active';"
+    },
+    {
+      "buggy": "SELECT *\nFROM customers\nWHERE name = 'O'Reilly';",
+      "fix": "SELECT *\nFROM customers\nWHERE name = 'O''Reilly';"
+    },
+    {
+      "buggy": "SELECT department, MAX(salary)\nFROM employees\nWHERE MAX(salary) > 100000;",
+      "fix": "SELECT department, MAX(salary)\nFROM employees\nGROUP BY department\nHAVING MAX(salary) > 100000;"
+    }
+  ]

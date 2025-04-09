@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "function identity<T>(arg: T): T[] {\n  return arg;\n}",
+      "fix": "function identity<T>(arg: T): T {\n  return arg;\n}"
+    },
+    {
+      "buggy": "type Coordinates = [number, number, number?];\nconst point: Coordinates = [1, 2, 3, 4];",
+      "fix": "type Coordinates = [number, number, number?];\nconst point: Coordinates = [1, 2, 3];"
+    },
+    {
+      "buggy": "interface User {\n  name: string;\n  readonly age: number;\n}\n\nlet user: User = { name: 'Jane', age: 30 };\nuser.age = 31;",
+      "fix": "interface User {\n  name: string;\n  readonly age: number;\n}\n\nlet user: User = { name: 'Jane', age: 30 };"
+    },
+    {
+      "buggy": "class Car {\n  private drive(): void {\n    console.log('Vroom');\n  }\n}\n\nconst myCar = new Car();\nmyCar.drive();",
+      "fix": "class Car {\n  private drive(): void {\n    console.log('Vroom');\n  }\n}\n\nconst myCar = new Car();"
+    },
+    {
+      "buggy": "let value: unknown = 'hello';\nconsole.log(value.toUpperCase());",
+      "fix": "let value: unknown = 'hello';\nif (typeof value === 'string') {\n  console.log(value.toUpperCase());\n}"
+    },
+    {
+      "buggy": "function doSomething(input: string | number) {\n  console.log(input.toUpperCase());\n}",
+      "fix": "function doSomething(input: string | number) {\n  if (typeof input === 'string') {\n    console.log(input.toUpperCase());\n  }\n}"
+    },
+    {
+      "buggy": "type Color = 'red' | 'green' | 'blue';\nconst color: Color = 'purple';",
+      "fix": "type Color = 'red' | 'green' | 'blue';\nconst color: Color = 'red';"
+    },
+    {
+      "buggy": "interface Animal {\n  speak: () => void;\n}\n\nconst cat: Animal = {\n  speak: 'meow'\n};",
+      "fix": "interface Animal {\n  speak: () => void;\n}\n\nconst cat: Animal = {\n  speak: () => console.log('meow')\n};"
+    },
+    {
+      "buggy": "const nums: number[] = [1, 2, 3];\nnums.push('4');",
+      "fix": "const nums: number[] = [1, 2, 3];\nnums.push(4);"
+    },
+    {
+      "buggy": "function log(message?: string) {\n  console.log(message.toUpperCase());\n}",
+      "fix": "function log(message?: string) {\n  console.log(message?.toUpperCase());\n}"
+    },
+    {
+      "buggy": "let myTuple: [number, string];\nmyTuple = ['hello', 42];",
+      "fix": "let myTuple: [number, string];\nmyTuple = [42, 'hello'];"
+    },
+    {
+      "buggy": "type Nullable<T> = T | null;\nconst name: Nullable<string> = undefined;",
+      "fix": "type Nullable<T> = T | null | undefined;\nconst name: Nullable<string> = undefined;"
+    },
+    {
+      "buggy": "const multiply = (a: number, b: number): void => {\n  return a * b;\n};",
+      "fix": "const multiply = (a: number, b: number): number => {\n  return a * b;\n};"
+    },
+    {
+      "buggy": "enum Direction {\n  Up,\n  Down,\n  Left,\n  Right\n}\n\nconst move: Direction = 'Up';",
+      "fix": "enum Direction {\n  Up,\n  Down,\n  Left,\n  Right\n}\n\nconst move: Direction = Direction.Up;"
+    },
+    {
+      "buggy": "const length = (str: string | null) => str.length;",
+      "fix": "const length = (str: string | null) => str?.length;"
+    },
+    {
+      "buggy": "type Callback = () => void;\n\nfunction register(cb: Callback | null) {\n  cb();\n}",
+      "fix": "type Callback = () => void;\n\nfunction register(cb: Callback | null) {\n  cb?.();\n}"
+    },
+    {
+      "buggy": "interface A {\n  x: number;\n}\ninterface B extends A {\n  x: string;\n}",
+      "fix": "interface A {\n  x: number;\n}\ninterface B extends A {\n  x: number;\n}"
+    },
+    {
+      "buggy": "type Result<T> = { value: T } | { error: string };\n\nconst result: Result<number> = { value: 'error' };",
+      "fix": "type Result<T> = { value: T } | { error: string };\n\nconst result: Result<number> = { error: 'error' };"
+    },
+    {
+      "buggy": "function filterStrings(arr: (string | number)[]): string[] {\n  return arr.filter(x => typeof x === 'string');\n}",
+      "fix": "function filterStrings(arr: (string | number)[]): string[] {\n  return arr.filter((x): x is string => typeof x === 'string');\n}"
+    },
+    {
+      "buggy": "const str: string = null;",
+      "fix": "const str: string | null = null;"
+    }
+  ]

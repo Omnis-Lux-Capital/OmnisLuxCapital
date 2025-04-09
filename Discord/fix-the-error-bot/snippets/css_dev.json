@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": ".card { padding: 10px 15px 5px; padding-left: 20px; }",
+      "fix": ".card { padding: 10px 15px 5px 20px; }"
+    },
+    {
+      "buggy": ".wrapper { position: absolute; top: 50%; left: 50%; transform: translate(50%, 50%); }",
+      "fix": ".wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }"
+    },
+    {
+      "buggy": ".grid > div { flex: 1 1 200px; }",
+      "fix": ".grid > div { flex: 1 0 200px; }"
+    },
+    {
+      "buggy": ".modal { z-index: 1; position: relative; }",
+      "fix": ".modal { z-index: 9999; position: fixed; }"
+    },
+    {
+      "buggy": ".text { font: bold 16px sans-serif; font-weight: normal; }",
+      "fix": ".text { font: normal 16px sans-serif; }"
+    },
+    {
+      "buggy": ".layout { display: grid; grid-template-columns: repeat(3); }",
+      "fix": ".layout { display: grid; grid-template-columns: repeat(3, 1fr); }"
+    },
+    {
+      "buggy": ".box { border: 1px solid; border-color: red green; }",
+      "fix": ".box { border: 1px solid red; }"
+    },
+    {
+      "buggy": ".nav li a:hover { text-decoration: underline; } a:hover { color: red; }",
+      "fix": ".nav li a:hover { text-decoration: underline; color: red; }"
+    },
+    {
+      "buggy": ".hidden { visibility: hidden; display: none; }",
+      "fix": ".hidden { display: none; }"
+    },
+    {
+      "buggy": "input:focus { outline: none border-color: blue; }",
+      "fix": "input:focus { outline: none; border-color: blue; }"
+    },
+    {
+      "buggy": ".box { width: 100vw; padding: 20px; box-sizing: content-box; }",
+      "fix": ".box { width: 100vw; padding: 20px; box-sizing: border-box; }"
+    },
+    {
+      "buggy": "body { font-size: 100%; } h1 { font-size: 200%; } h2 { font-size: 200%; }",
+      "fix": "body { font-size: 100%; } h1 { font-size: 200%; } h2 { font-size: 150%; }"
+    },
+    {
+      "buggy": ".btn { background-color: #fff; border: 1px solid #000; color: #000; background: none; }",
+      "fix": ".btn { background: none; border: 1px solid #000; color: #000; }"
+    },
+    {
+      "buggy": ".container { margin: 0 auto; width: 100%; max-width: 800px; min-width: 900px; }",
+      "fix": ".container { margin: 0 auto; max-width: 900px; width: 100%; }"
+    },
+    {
+      "buggy": ".img { height: auto; width: auto; max-width: 100%; }",
+      "fix": ".img { height: auto; max-width: 100%; }"
+    },
+    {
+      "buggy": ".box::before { content: url(icon.png); position: relative; top: 10px }",
+      "fix": ".box::before { content: url(icon.png); position: relative; top: 10px; }"
+    },
+    {
+      "buggy": ".menu li { display: inline; margin: 10px 0; }",
+      "fix": ".menu li { display: inline-block; margin: 10px 0; }"
+    },
+    {
+      "buggy": ".overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100%; }",
+      "fix": ".overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; }"
+    },
+    {
+      "buggy": ".col { float: left; width: 33%; margin-left: 33%; }",
+      "fix": ".col { float: left; width: 33%; margin-left: 1%; }"
+    },
+    {
+      "buggy": ".centered { margin: auto; position: absolute; top: 50%; transform: translateY(-50%); }",
+      "fix": ".centered { margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }"
+    }
+  ]

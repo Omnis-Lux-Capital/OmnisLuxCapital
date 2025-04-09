@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "def greet(name)\n  'Hello, ' + name\nputs greet('Ruby')",
+      "fix": "def greet(name)\n  'Hello, ' + name\nend\nputs greet('Ruby')"
+    },
+    {
+      "buggy": "array = [1, 2, 3]\narray.each do |n|\nputs n",
+      "fix": "array = [1, 2, 3]\narray.each do |n|\n  puts n\nend"
+    },
+    {
+      "buggy": "def double(x)\n  x * 2\nend\nputs double",
+      "fix": "def double(x)\n  x * 2\nend\nputs double(4)"
+    },
+    {
+      "buggy": "puts \"5 + 5 = \" + 10",
+      "fix": "puts \"5 + 5 = \" + 10.to_s"
+    },
+    {
+      "buggy": "text = 'Hello'\nputs text.lengths",
+      "fix": "text = 'Hello'\nputs text.length"
+    },
+    {
+      "buggy": "def say_hi(name = 'User')\n  puts \"Hi, #{name}\"\nend\nsay_hi()",
+      "fix": "def say_hi(name = 'User')\n  puts \"Hi, #{name}\"\nend\nsay_hi"
+    },
+    {
+      "buggy": "number = '10'\nputs number / 2",
+      "fix": "number = '10'\nputs number.to_i / 2"
+    },
+    {
+      "buggy": "def even?(n)\n  n % 2 = 0\nend",
+      "fix": "def even?(n)\n  n % 2 == 0\nend"
+    },
+    {
+      "buggy": "person = {name: 'Alex', age: 30}\nputs person.name",
+      "fix": "person = {name: 'Alex', age: 30}\nputs person[:name]"
+    },
+    {
+      "buggy": "puts 'What\\'s up?'",
+      "fix": "puts \"What's up?\""
+    },
+    {
+      "buggy": "5.times do |i|\nputs i",
+      "fix": "5.times do |i|\n  puts i\nend"
+    },
+    {
+      "buggy": "name = 'Ruby'\nputs \"Hello, name\"",
+      "fix": "name = 'Ruby'\nputs \"Hello, #{name}\""
+    },
+    {
+      "buggy": "def divide(a, b)\n  a / b\nend\nputs divide(4, 0)",
+      "fix": "def divide(a, b)\n  b == 0 ? 'Cannot divide by zero' : a / b\nend\nputs divide(4, 0)"
+    },
+    {
+      "buggy": "arr = [1, 2, 3]\nputs arr[3]",
+      "fix": "arr = [1, 2, 3]\nputs arr[2]"
+    },
+    {
+      "buggy": "def greet name\n  puts 'Hi ' + name\nend\nputs greet('Tom')",
+      "fix": "def greet(name)\n  puts 'Hi ' + name\nend\ngreet('Tom')"
+    },
+    {
+      "buggy": "hash = {a: 1, b: 2}\nputs hash[a]",
+      "fix": "hash = {a: 1, b: 2}\nputs hash[:a]"
+    },
+    {
+      "buggy": "puts 'The result is: ' + 3 * 2",
+      "fix": "puts 'The result is: ' + (3 * 2).to_s"
+    },
+    {
+      "buggy": "def countdown(n)\n  while n > 0\n    puts n\n    n -= 1",
+      "fix": "def countdown(n)\n  while n > 0\n    puts n\n    n -= 1\n  end\nend"
+    },
+    {
+      "buggy": "def say_hello\n  puts Hello\nend",
+      "fix": "def say_hello\n  puts 'Hello'\nend"
+    },
+    {
+      "buggy": "value = gets\nputs 'You entered: ' + value",
+      "fix": "value = gets.chomp\nputs 'You entered: ' + value"
+    }
+  ]

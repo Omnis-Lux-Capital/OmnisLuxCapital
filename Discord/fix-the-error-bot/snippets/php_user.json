@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<?php\necho 'Hello World;",
+      "fix": "<?php\necho 'Hello World';"
+    },
+    {
+      "buggy": "<?php\n$number = '5' + '10';\necho $number;",
+      "fix": "<?php\n$number = (int)'5' + (int)'10';\necho $number;"
+    },
+    {
+      "buggy": "<?php\nif (true)\n  echo 'Yes';\n  echo 'Always';",
+      "fix": "<?php\nif (true) {\n  echo 'Yes';\n  echo 'Always';\n}"
+    },
+    {
+      "buggy": "<?php\n$array = array('a', 'b', 'c');\necho $array[3];",
+      "fix": "<?php\n$array = array('a', 'b', 'c');\necho $array[2];"
+    },
+    {
+      "buggy": "<?php\n$var = 10;\nfunction showVar() {\n  echo $var;\n}\nshowVar();",
+      "fix": "<?php\n$var = 10;\nfunction showVar() {\n  global $var;\n  echo $var;\n}\nshowVar();"
+    },
+    {
+      "buggy": "<?php\nfor ($i = 0; $i < 5; $i++)\n  echo $i\n?>",
+      "fix": "<?php\nfor ($i = 0; $i < 5; $i++) {\n  echo $i;\n}\n?>"
+    },
+    {
+      "buggy": "<?php\n$name = 'John'\necho \"Hello $name\";",
+      "fix": "<?php\n$name = 'John';\necho \"Hello $name\";"
+    },
+    {
+      "buggy": "<?php\nfunction greet($name) {\n  echo 'Hello, ' . $Name;\n}\ngreet('Alex');",
+      "fix": "<?php\nfunction greet($name) {\n  echo 'Hello, ' . $name;\n}\ngreet('Alex');"
+    },
+    {
+      "buggy": "<?php\n$val = 10;\nif ($val = 5) {\n  echo 'Five';\n}",
+      "fix": "<?php\n$val = 10;\nif ($val == 5) {\n  echo 'Five';\n}"
+    },
+    {
+      "buggy": "<?php\n$str = 'Hello';\n$str[10] = '!';\necho $str;",
+      "fix": "<?php\n$str = 'Hello';\n$str .= '!';\necho $str;"
+    },
+    {
+      "buggy": "<?php\n$x = 5;\n$y = &$x;\n$y = 10;\necho $x;",
+      "fix": "<?php\n$x = 5;\n$y = $x;\n$y = 10;\necho $x;"
+    },
+    {
+      "buggy": "<?php\n$items = ['a', 'b', 'c'];\nforeach ($items as $item)\n  echo $item",
+      "fix": "<?php\n$items = ['a', 'b', 'c'];\nforeach ($items as $item) {\n  echo $item;\n}"
+    },
+    {
+      "buggy": "<?php\n$bool = true;\necho !$bool == false;",
+      "fix": "<?php\n$bool = true;\necho (!($bool == false));"
+    },
+    {
+      "buggy": "<?php\n$sum = 10 + ;\necho $sum;",
+      "fix": "<?php\n$sum = 10 + 5;\necho $sum;"
+    },
+    {
+      "buggy": "<?php\n$greeting = 'Hello';\necho $Greeting;",
+      "fix": "<?php\n$greeting = 'Hello';\necho $greeting;"
+    },
+    {
+      "buggy": "<?php\nfunction add($a, $b)\n  return $a + $b;\necho add(2, 3);",
+      "fix": "<?php\nfunction add($a, $b) {\n  return $a + $b;\n}\necho add(2, 3);"
+    },
+    {
+      "buggy": "<?php\n$x = '5';\n$y = 10;\necho $x . $y;",
+      "fix": "<?php\n$x = '5';\n$y = 10;\necho (int)$x + $y;"
+    },
+    {
+      "buggy": "<?php\n$nums = [1, 2, 3];\necho count($nums);$nums[] = 4;\necho count($nums);",
+      "fix": "<?php\n$nums = [1, 2, 3];\necho count($nums);\n$nums[] = 4;\necho count($nums);"
+    },
+    {
+      "buggy": "<?php\n$test = NULL;\necho isset($test);",
+      "fix": "<?php\n$test = NULL;\necho !is_null($test);"
+    },
+    {
+      "buggy": "<?php\n$num = 4;\necho $num ** 0.5;",
+      "fix": "<?php\n$num = 4;\necho sqrt($num);"
+    }
+  ]

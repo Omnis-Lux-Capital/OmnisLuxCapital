@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "let name = \"John\nprint(name)",
+      "fix": "let name = \"John\"\nprint(name)"
+    },
+    {
+      "buggy": "var x = 10\nif x = 10 {\n    print(\"Ten\")\n}",
+      "fix": "var x = 10\nif x == 10 {\n    print(\"Ten\")\n}"
+    },
+    {
+      "buggy": "for i in 1...5 {\nprint(i)\n}",
+      "fix": "for i in 1...5 {\n    print(i)\n}"
+    },
+    {
+      "buggy": "func greet(name: String) {\nprint(\"Hello, \\(name)\")\n}",
+      "fix": "func greet(name: String) {\n    print(\"Hello, \\(name)\")\n}"
+    },
+    {
+      "buggy": "let age: Int = \"30\"",
+      "fix": "let age: Int = Int(\"30\")!"
+    },
+    {
+      "buggy": "var list = [1, 2, 3]\nprint(list[3])",
+      "fix": "var list = [1, 2, 3]\nprint(list[2])"
+    },
+    {
+      "buggy": "let pi = 3.14\npi = 3.1415",
+      "fix": "var pi = 3.14\npi = 3.1415"
+    },
+    {
+      "buggy": "let welcome = 'Hello'",
+      "fix": "let welcome = \"Hello\""
+    },
+    {
+      "buggy": "func square(n: Int) -> Int {\n    return n * n\n}\nprint(square)",
+      "fix": "func square(n: Int) -> Int {\n    return n * n\n}\nprint(square(n: 4))"
+    },
+    {
+      "buggy": "let isTrue = true\nif isTrue {\nprint(\"It's true!\")\n}",
+      "fix": "let isTrue = true\nif isTrue {\n    print(\"It's true!\")\n}"
+    },
+    {
+      "buggy": "var str = \"Swift\"\nprint(str.count())",
+      "fix": "var str = \"Swift\"\nprint(str.count)"
+    },
+    {
+      "buggy": "var num: Int = nil",
+      "fix": "var num: Int? = nil"
+    },
+    {
+      "buggy": "let name: String\nprint(name)",
+      "fix": "let name: String = \"Alex\"\nprint(name)"
+    },
+    {
+      "buggy": "let numbers = [1, 2, 3]\nnumbers.append(4)",
+      "fix": "var numbers = [1, 2, 3]\nnumbers.append(4)"
+    },
+    {
+      "buggy": "func add(a: Int, b: Int) -> Int\n    return a + b\n}",
+      "fix": "func add(a: Int, b: Int) -> Int {\n    return a + b\n}"
+    },
+    {
+      "buggy": "let flag = TRUE",
+      "fix": "let flag = true"
+    },
+    {
+      "buggy": "var message = \"Welcome to Swift\"\nprint message",
+      "fix": "var message = \"Welcome to Swift\"\nprint(message)"
+    },
+    {
+      "buggy": "let number = 5\nif number > 3\n    print(\"Big\")",
+      "fix": "let number = 5\nif number > 3 {\n    print(\"Big\")\n}"
+    },
+    {
+      "buggy": "let day = Monday",
+      "fix": "let day = \"Monday\""
+    },
+    {
+      "buggy": "func double(x: Int) -> Int {\n    return x ** 2\n}",
+      "fix": "func double(x: Int) -> Int {\n    return x * x\n}"
+    }
+  ]

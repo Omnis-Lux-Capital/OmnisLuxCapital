@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "trap 'echo Signal received' SIGINT\nwhile true; do\n  sleep 1\n  echo Working\n",
+      "fix": "trap 'echo Signal received' SIGINT\nwhile true; do\n  sleep 1\n  echo Working\ndone"
+    },
+    {
+      "buggy": "awk -F: '{ print $1 $3 }' /etc/passwd",
+      "fix": "awk -F: '{ print $1, $3 }' /etc/passwd"
+    },
+    {
+      "buggy": "cat <<EOF\nThis is a test\nEOF2",
+      "fix": "cat <<EOF\nThis is a test\nEOF"
+    },
+    {
+      "buggy": "x=abc\nif [[ $x = \"abc\" || $x = \"def\" ]\nthen\n  echo Match\nfi",
+      "fix": "x=abc\nif [[ $x = \"abc\" || $x = \"def\" ]]; then\n  echo Match\nfi"
+    },
+    {
+      "buggy": "for file in $(ls *.txt)\ndo\n  echo $file",
+      "fix": "for file in *.txt; do\n  echo $file\ndone"
+    },
+    {
+      "buggy": "while read line\n  echo $line\ndone < file.txt",
+      "fix": "while read line; do\n  echo $line\ndone < file.txt"
+    },
+    {
+      "buggy": "array=(one two three)\nunset array[1]\necho ${array[@]}",
+      "fix": "array=(one two three)\nunset array[1]\necho \"${array[@]}\""
+    },
+    {
+      "buggy": "x=10\ny=0\nresult=$((x / y))\necho $result",
+      "fix": "x=10\ny=0\nif [ $y -ne 0 ]; then\n  result=$((x / y))\n  echo $result\nelse\n  echo \"Division by zero error\"\nfi"
+    },
+    {
+      "buggy": "exec > log.txt\nls -l\nexec >",
+      "fix": "exec > log.txt\nls -l\nexec >&2"
+    },
+    {
+      "buggy": "IFS=:\nread user pass <<< \"admin:1234\"\necho $user, $pass",
+      "fix": "IFS=:\nread -r user pass <<< \"admin:1234\"\necho \"$user, $pass\""
+    },
+    {
+      "buggy": "function f {\n  echo Hello\n}",
+      "fix": "function f() {\n  echo Hello\n}"
+    },
+    {
+      "buggy": "find . -type f -mtime -7 -print | xargs rm -f",
+      "fix": "find . -type f -mtime -7 -print0 | xargs -0 rm -f"
+    },
+    {
+      "buggy": "eval \"echo \\$HOME\"",
+      "fix": "echo \"$HOME\""
+    },
+    {
+      "buggy": "a=5\nb=3\nif (( a > b )) then\n  echo A is greater\nfi",
+      "fix": "a=5\nb=3\nif (( a > b )); then\n  echo A is greater\nfi"
+    },
+    {
+      "buggy": "command1 && command2 || command3",
+      "fix": "if command1; then\n  command2\nelse\n  command3\nfi"
+    },
+    {
+      "buggy": "echo $(cat file.txt | grep 'error')",
+      "fix": "grep 'error' file.txt"
+    },
+    {
+      "buggy": "VAR=`date +%Y-%m-%d`\necho VAR",
+      "fix": "VAR=$(date +%Y-%m-%d)\necho \"$VAR\""
+    },
+    {
+      "buggy": "while [ true ]; do\n  echo loop\n  break",
+      "fix": "while true; do\n  echo loop\n  break\ndone"
+    },
+    {
+      "buggy": "read -p Enter your name: name\necho Hello $name",
+      "fix": "read -p \"Enter your name: \" name\necho \"Hello $name\""
+    },
+    {
+      "buggy": "echo \"Line 1\nLine 2\nLine 3\" | head -n 2 | tail -n 1 | cut -d' ' -f2",
+      "fix": "echo -e \"Line 1\\nLine 2\\nLine 3\" | head -n 2 | tail -n 1 | cut -d' ' -f2"
+    }
+  ]

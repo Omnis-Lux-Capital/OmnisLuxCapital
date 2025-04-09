@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "WITH RECURSIVE nums(n) AS (\n  SELECT 1\n  UNION ALL\n  SELECT n + 1 FROM nums\n  WHERE n < 5\n)\nSELECT * FROM numbers;",
+      "fix": "WITH RECURSIVE nums(n) AS (\n  SELECT 1\n  UNION ALL\n  SELECT n + 1 FROM nums\n  WHERE n < 5\n)\nSELECT * FROM nums;"
+    },
+    {
+      "buggy": "SELECT employee_id, MAX(salary)\nFROM employees\nGROUP BY department_id;",
+      "fix": "SELECT department_id, MAX(salary)\nFROM employees\nGROUP BY department_id;"
+    },
+    {
+      "buggy": "SELECT *\nFROM orders o\nJOIN customers c\nON o.customer_id;",
+      "fix": "SELECT *\nFROM orders o\nJOIN customers c\nON o.customer_id = c.id;"
+    },
+    {
+      "buggy": "SELECT id, name\nFROM products\nWHERE EXISTS (SELECT quantity FROM inventory WHERE quantity > 0);",
+      "fix": "SELECT id, name\nFROM products\nWHERE EXISTS (\n  SELECT 1 FROM inventory\n  WHERE inventory.product_id = products.id AND quantity > 0\n);"
+    },
+    {
+      "buggy": "SELECT name\nFROM employees\nWHERE department_id IN (SELECT department_id FROM departments WHERE location_id = 100)\nORDER BY;",
+      "fix": "SELECT name\nFROM employees\nWHERE department_id IN (\n  SELECT department_id FROM departments WHERE location_id = 100\n)\nORDER BY name;"
+    },
+    {
+      "buggy": "UPDATE accounts\nSET balance = balance - 100\nWHERE id = 1;\nUPDATE accounts\nSET balance = balance + 100\nWHERE id = 2;",
+      "fix": "BEGIN;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;"
+    },
+    {
+      "buggy": "SELECT department, COUNT(*) as num\nFROM employees\nGROUP BY department\nHAVING num > 5;",
+      "fix": "SELECT department, COUNT(*) as num\nFROM employees\nGROUP BY department\nHAVING COUNT(*) > 5;"
+    },
+    {
+      "buggy": "SELECT id\nFROM orders\nWHERE amount > ALL (SELECT MAX(amount) FROM orders);",
+      "fix": "SELECT id\nFROM orders\nWHERE amount = (SELECT MAX(amount) FROM orders);"
+    },
+    {
+      "buggy": "SELECT * FROM (\n  SELECT name, RANK() OVER () as rnk\n  FROM employees\n) sub\nWHERE rnk <= 5;",
+      "fix": "SELECT * FROM (\n  SELECT name, RANK() OVER (ORDER BY salary DESC) as rnk\n  FROM employees\n) sub\nWHERE rnk <= 5;"
+    },
+    {
+      "buggy": "SELECT name\nFROM employees\nWHERE name LIKE '_a%'\nAND name LIKE '%n';",
+      "fix": "SELECT name\nFROM employees\nWHERE name LIKE '_a%n';"
+    },
+    {
+      "buggy": "SELECT *\nFROM orders\nWHERE DATE(order_date) = '2023-01-01'\nAND TIME(order_date) = '10:00:00';",
+      "fix": "SELECT *\nFROM orders\nWHERE order_date = '2023-01-01 10:00:00';"
+    },
+    {
+      "buggy": "SELECT *\nFROM sales\nPARTITION BY region;",
+      "fix": "SELECT region, SUM(amount) OVER (PARTITION BY region) as total\nFROM sales;"
+    },
+    {
+      "buggy": "SELECT customer_id, COUNT(order_id) OVER ()\nFROM orders;",
+      "fix": "SELECT customer_id, COUNT(order_id) OVER (PARTITION BY customer_id)\nFROM orders;"
+    },
+    {
+      "buggy": "SELECT employee_id\nFROM employees\nWHERE salary > AVG(salary);",
+      "fix": "SELECT employee_id\nFROM employees\nWHERE salary > (\n  SELECT AVG(salary) FROM employees\n);"
+    },
+    {
+      "buggy": "SELECT * FROM orders\nWHERE order_date > DATE_SUB(NOW(), INTERVAL '30 days');",
+      "fix": "SELECT * FROM orders\nWHERE order_date > DATE_SUB(NOW(), INTERVAL 30 DAY);"
+    },
+    {
+      "buggy": "SELECT name\nFROM customers\nWHERE LENGTH(name) > 5\nORDER name;",
+      "fix": "SELECT name\nFROM customers\nWHERE LENGTH(name) > 5\nORDER BY name;"
+    },
+    {
+      "buggy": "SELECT department_id, SUM(salary)\nFROM employees\nWHERE SUM(salary) > 100000\nGROUP BY department_id;",
+      "fix": "SELECT department_id, SUM(salary)\nFROM employees\nGROUP BY department_id\nHAVING SUM(salary) > 100000;"
+    },
+    {
+      "buggy": "SELECT *\nFROM orders\nWHERE YEAR(order_date) = 2023\nAND MONTH(order_date) =;",
+      "fix": "SELECT *\nFROM orders\nWHERE YEAR(order_date) = 2023\nAND MONTH(order_date) = 4;"
+    },
+    {
+      "buggy": "SELECT *\nFROM (SELECT * FROM employees LIMIT 10) LIMIT 5;",
+      "fix": "SELECT *\nFROM employees\nLIMIT 5;"
+    },
+    {
+      "buggy": "SELECT id\nFROM employees\nWHERE salary = (SELECT salary FROM employees WHERE department = 'IT');",
+      "fix": "SELECT id\nFROM employees\nWHERE salary = (\n  SELECT MAX(salary) FROM employees WHERE department = 'IT'\n);"
+    }
+  ]

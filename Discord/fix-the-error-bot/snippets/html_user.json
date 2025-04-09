@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "<img src='image.jpg'>",
+      "fix": "<img src='image.jpg' alt='Description'>"
+    },
+    {
+      "buggy": "<a href='https://example.com'>Click here",
+      "fix": "<a href='https://example.com'>Click here</a>"
+    },
+    {
+      "buggy": "<p>This is a paragraph<p>This is another one</p>",
+      "fix": "<p>This is a paragraph</p><p>This is another one</p>"
+    },
+    {
+      "buggy": "<ul><li>Item 1<li>Item 2</ul>",
+      "fix": "<ul><li>Item 1</li><li>Item 2</li></ul>"
+    },
+    {
+      "buggy": "<input type='checkbox' name='subscribe'>Subscribe",
+      "fix": "<label><input type='checkbox' name='subscribe'>Subscribe</label>"
+    },
+    {
+      "buggy": "<div class='container'><span>Text</div></span>",
+      "fix": "<div class='container'><span>Text</span></div>"
+    },
+    {
+      "buggy": "<img src=image.jpg alt='Missing quotes'>",
+      "fix": "<img src='image.jpg' alt='Missing quotes'>"
+    },
+    {
+      "buggy": "<button>Submit<button>",
+      "fix": "<button>Submit</button>"
+    },
+    {
+      "buggy": "<h1>Title</h2>",
+      "fix": "<h1>Title</h1>"
+    },
+    {
+      "buggy": "<html><head><title>Page</title><body><p>Welcome!</p></body></html>",
+      "fix": "<html><head><title>Page</title></head><body><p>Welcome!</p></body></html>"
+    },
+    {
+      "buggy": "<table><tr><td>Row 1<td>Row 2</tr></table>",
+      "fix": "<table><tr><td>Row 1</td><td>Row 2</td></tr></table>"
+    },
+    {
+      "buggy": "<form action='/submit' method=post>",
+      "fix": "<form action='/submit' method='post'>"
+    },
+    {
+      "buggy": "<meta charset=utf-8>",
+      "fix": "<meta charset='utf-8'>"
+    },
+    {
+      "buggy": "<label>Email<input type='email' name='email'></label",
+      "fix": "<label>Email<input type='email' name='email'></label>"
+    },
+    {
+      "buggy": "<link rel='stylesheet' href=styles.css>",
+      "fix": "<link rel='stylesheet' href='styles.css'>"
+    },
+    {
+      "buggy": "<div><h2>Heading<h2><p>Text</p></div>",
+      "fix": "<div><h2>Heading</h2><p>Text</p></div>"
+    },
+    {
+      "buggy": "<script src='app.js'></script><body>Content</body>",
+      "fix": "<body>Content<script src='app.js'></script></body>"
+    },
+    {
+      "buggy": "<input type='text' placeholder=Enter name>",
+      "fix": "<input type='text' placeholder='Enter name'>"
+    },
+    {
+      "buggy": "<strong>Bold text<strong>",
+      "fix": "<strong>Bold text</strong>"
+    },
+    {
+      "buggy": "<div><p>Paragraph</div></p>",
+      "fix": "<div><p>Paragraph</p></div>"
+    }
+  ]

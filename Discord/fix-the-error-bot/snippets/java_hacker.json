@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "public class A {\n  public A() {\n    this();\n  }\n}",
+      "fix": "public class A {\n  public A() {\n    // Constructor body\n  }\n}"
+    },
+    {
+      "buggy": "class A {\n  static int count = 0;\n  A() {\n    count++;\n  }\n}\nSystem.out.println(A.count);",
+      "fix": "class A {\n  static int count = 0;\n  A() {\n    count++;\n  }\n}\nA a = new A();\nSystem.out.println(A.count);"
+    },
+    {
+      "buggy": "class A {\n  void method() {\n    System.out.println(\"A\");\n  }\n}\nclass B extends A {\n  private void method() {\n    System.out.println(\"B\");\n  }\n}\nnew B().method();",
+      "fix": "class A {\n  void method() {\n    System.out.println(\"A\");\n  }\n}\nclass B extends A {\n  public void method() {\n    System.out.println(\"B\");\n  }\n}\nnew B().method();"
+    },
+    {
+      "buggy": "public class Example {\n  static {\n    int x = 5 / 0;\n  }\n  public static void main(String[] args) {\n    System.out.println(\"Main\");\n  }\n}",
+      "fix": "public class Example {\n  static {\n    int x = 5 / 1;\n  }\n  public static void main(String[] args) {\n    System.out.println(\"Main\");\n  }\n}"
+    },
+    {
+      "buggy": "class A {\n  void foo() {}\n}\nclass B extends A {\n  int foo() { return 1; }\n}",
+      "fix": "class A {\n  int foo() { return 0; }\n}\nclass B extends A {\n  int foo() { return 1; }\n}"
+    },
+    {
+      "buggy": "List<Integer> list = new ArrayList<>();\nlist.add(1);\nlist.add(2);\nfor(int i = 0; i < list.size(); i++) {\n  list.remove(i);\n}",
+      "fix": "List<Integer> list = new ArrayList<>();\nlist.add(1);\nlist.add(2);\nfor(int i = list.size() - 1; i >= 0; i--) {\n  list.remove(i);\n}"
+    },
+    {
+      "buggy": "class Example {\n  static int x = y;\n  static int y = 5;\n  public static void main(String[] args) {\n    System.out.println(x);\n  }\n}",
+      "fix": "class Example {\n  static int y = 5;\n  static int x = y;\n  public static void main(String[] args) {\n    System.out.println(x);\n  }\n}"
+    },
+    {
+      "buggy": "try {\n  int[] arr = new int[-5];\n} catch(Exception e) {\n  System.out.println(\"Error\");\n}",
+      "fix": "try {\n  int[] arr = new int[-5];\n} catch(NegativeArraySizeException e) {\n  System.out.println(\"Error\");\n}"
+    },
+    {
+      "buggy": "public class Test {\n  public static void main(String[] args) {\n    Object obj = new Integer(100);\n    System.out.println((String) obj);\n  }\n}",
+      "fix": "public class Test {\n  public static void main(String[] args) {\n    Object obj = new Integer(100);\n    System.out.println(obj.toString());\n  }\n}"
+    },
+    {
+      "buggy": "String a = \"hello\";\nString b = \"hello\";\nif(a == b) System.out.println(\"Equal\");",
+      "fix": "String a = new String(\"hello\");\nString b = new String(\"hello\");\nif(a.equals(b)) System.out.println(\"Equal\");"
+    },
+    {
+      "buggy": "public class A {\n  final int x;\n  public A() {\n    System.out.println(x);\n    x = 10;\n  }\n}",
+      "fix": "public class A {\n  final int x;\n  public A() {\n    x = 10;\n    System.out.println(x);\n  }\n}"
+    },
+    {
+      "buggy": "Thread t = new Thread();\nt.run();",
+      "fix": "Thread t = new Thread();\nt.start();"
+    },
+    {
+      "buggy": "String s = null;\nif (s.length() == 0) {\n  System.out.println(\"Empty\");\n}",
+      "fix": "String s = null;\nif (s != null && s.length() == 0) {\n  System.out.println(\"Empty\");\n}"
+    },
+    {
+      "buggy": "public class Main {\n  static int count = 0;\n  public static void main(String[] args) {\n    count++;\n    main(args);\n  }\n}",
+      "fix": "public class Main {\n  static int count = 0;\n  public static void main(String[] args) {\n    count++;\n    if(count < 10) main(args);\n  }\n}"
+    },
+    {
+      "buggy": "Integer a = 127;\nInteger b = 127;\nif(a != b) System.out.println(\"Not same\");",
+      "fix": "Integer a = 128;\nInteger b = 128;\nif(!a.equals(b)) System.out.println(\"Not same\");"
+    },
+    {
+      "buggy": "class A {\n  A() {\n    System.out.println(this);\n  }\n  public String toString() {\n    return name;\n  }\n  String name = \"Test\";\n}",
+      "fix": "class A {\n  String name = \"Test\";\n  A() {\n    System.out.println(this);\n  }\n  public String toString() {\n    return name;\n  }\n}"
+    },
+    {
+      "buggy": "public class Counter {\n  private static int count;\n  public void increment() {\n    count++;\n  }\n  public void print() {\n    System.out.println(count);\n  }\n}\nCounter c1 = new Counter();\nCounter c2 = new Counter();\nc1.increment();\nc2.increment();\nc1.print();",
+      "fix": "public class Counter {\n  private int count;\n  public void increment() {\n    count++;\n  }\n  public void print() {\n    System.out.println(count);\n  }\n}\nCounter c1 = new Counter();\nCounter c2 = new Counter();\nc1.increment();\nc2.increment();\nc1.print();"
+    },
+    {
+      "buggy": "class A {\n  void test() {\n    test();\n  }\n}",
+      "fix": "class A {\n  void test() {\n    // Avoid infinite recursion\n  }\n}"
+    },
+    {
+      "buggy": "Object obj = new int[]{1, 2, 3};\nSystem.out.println(obj[0]);",
+      "fix": "Object obj = new int[]{1, 2, 3};\nSystem.out.println(((int[])obj)[0]);"
+    },
+    {
+      "buggy": "HashMap map = new HashMap();\nmap.put(null, null);\nSystem.out.println(map[null]);",
+      "fix": "HashMap map = new HashMap();\nmap.put(null, null);\nSystem.out.println(map.get(null));"
+    }
+  ]

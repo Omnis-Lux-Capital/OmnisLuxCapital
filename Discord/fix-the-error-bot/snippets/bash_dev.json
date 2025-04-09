@@ -1,0 +1,82 @@
+[
+    {
+      "buggy": "for i in {1..5}\n  echo $i\ndone",
+      "fix": "for i in {1..5}; do\n  echo $i\ndone"
+    },
+    {
+      "buggy": "my_array=(one two three)\necho $my_array[1]",
+      "fix": "my_array=(one two three)\necho ${my_array[1]}"
+    },
+    {
+      "buggy": "if [ -z $input ]; then\n  echo 'Empty input'\nfi",
+      "fix": "if [ -z \"$input\" ]; then\n  echo 'Empty input'\nfi"
+    },
+    {
+      "buggy": "while true;\n  echo Looping\n  sleep 1\ndone",
+      "fix": "while true; do\n  echo Looping\n  sleep 1\ndone"
+    },
+    {
+      "buggy": "name=\"John\"\necho Hello, name",
+      "fix": "name=\"John\"\necho \"Hello, $name\""
+    },
+    {
+      "buggy": "total=expr 1 + 2\necho $total",
+      "fix": "total=$(expr 1 + 2)\necho $total"
+    },
+    {
+      "buggy": "function say_hi() {\n  echo Hi\n",
+      "fix": "function say_hi() {\n  echo Hi\n}"
+    },
+    {
+      "buggy": "grep 'pattern' file.txt | wc -l > count.txt > log.txt",
+      "fix": "grep 'pattern' file.txt | tee log.txt | wc -l > count.txt"
+    },
+    {
+      "buggy": "find . -name \"*.sh\" -exec chmod +x {}",
+      "fix": "find . -name \"*.sh\" -exec chmod +x {} \\;"
+    },
+    {
+      "buggy": "for i in $(seq 1 5)\n  echo Number: $i\ndone",
+      "fix": "for i in $(seq 1 5); do\n  echo Number: $i\ndone"
+    },
+    {
+      "buggy": "touch file1 file2\nrm file{1,2}",
+      "fix": "touch file1 file2\nrm file1 file2"
+    },
+    {
+      "buggy": "x=5\nif [$x -eq 5]; then\n  echo Match\nfi",
+      "fix": "x=5\nif [ $x -eq 5 ]; then\n  echo Match\nfi"
+    },
+    {
+      "buggy": "read name\necho Hello, $Name",
+      "fix": "read name\necho \"Hello, $name\""
+    },
+    {
+      "buggy": "VAR='hello'\necho '${VAR}'",
+      "fix": "VAR='hello'\necho \"${VAR}\""
+    },
+    {
+      "buggy": "echo $((10 / 0))",
+      "fix": "dividend=10\ndivisor=0\nif [ $divisor -ne 0 ]; then\n  echo $((dividend / divisor))\nelse\n  echo \"Cannot divide by zero\"\nfi"
+    },
+    {
+      "buggy": "if [ -d mydir ] then\n  echo Exists\nfi",
+      "fix": "if [ -d mydir ]; then\n  echo Exists\nfi"
+    },
+    {
+      "buggy": "files=\"*.txt\"\necho $files",
+      "fix": "files=(*.txt)\necho \"${files[@]}\""
+    },
+    {
+      "buggy": "ls | grep txt > result.txt > error.txt",
+      "fix": "ls | tee error.txt | grep txt > result.txt"
+    },
+    {
+      "buggy": "date +%Y-%m-%d > date.txt > log.txt",
+      "fix": "date +%Y-%m-%d | tee log.txt > date.txt"
+    },
+    {
+      "buggy": "if [ -f $1 ]; then\n  echo File found\nelse\n  echo Not found",
+      "fix": "if [ -f \"$1\" ]; then\n  echo File found\nelse\n  echo Not found\nfi"
+    }
+  ]
